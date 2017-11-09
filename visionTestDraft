@@ -1,0 +1,143 @@
+# Vision Machine draft
+# Test Data Interface
+
+import statistics #For statistics.median()
+import cv2 #OpenCV
+import os #For working with files
+
+#Tells you which color group a pixel belongs in
+#The choices are Red, Blue, Gteen, Yellow, Pink, Gray, Black, and White
+def colorClassifier(red,green,blue):
+    median = statistics.median([red, blue, green])
+
+    #If all colors are within 10 of each other
+    if(blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and red <= (median + 10) and red >= (median - 10)):
+        if(median <= 50):
+            return "black"
+        elif(median >= 250):
+            return "white"
+        else:
+            return "gray"
+    #If blue and green are within 10 of each other and are the top two numbers
+    elif((max([red,blue,green]) == blue or max([red,blue,green]) == green) and (blue <= (green + 10) and blue >= (green - 10))):
+        if(blue >= 30 and green >= 30):
+            return "blue"
+        else:
+            return "black"
+    #If red and blue are within 10 of each other and are the top two numbers
+    elif ((max([red, blue, green]) == red or max([red, blue, green]) == blue) and (blue <= (red + 10) and blue >= (red - 10))):
+        if(red >= 40 and blue >= 40):
+            return "pink"
+        else:
+            return "black"
+    #If red and green are within 10 of each other and are the top two numbers
+    elif ((max([red, blue, green]) == red or max([red, blue, green]) == green) and (green <= (red + 10) and green >= (red - 10))):
+        if(red >= 80 and green >=80):
+            return "yellow"
+        else:
+            return "black"
+    #If red is highest
+    elif(max([red,blue,green]) == red):
+        if(min([blue,green]) <= (red - 20)):
+            return "red"
+        else:
+            return "gray"
+    #If green is highest
+    elif(max([red,blue,green]) == green):
+        if(min([red,blue,green]) <= (green - 20)):
+            return "green"
+        else:
+            return "gray"
+    #If blue is highest
+    elif(max([red,blue,green]) == blue):
+        if(min([red,blue,green]) <= (blue - 20)):
+            return "blue"
+        else:
+            return "gray"
+
+def countingColors(photoPath):
+    redCount = 0
+    blueCount = 0
+    greenCount = 0
+    yellowCount = 0
+    pinkCount = 0
+    grayCount = 0
+    blackCount = 0
+    whiteCount = 0
+
+    photo = cv2.imread(photoPath,1)
+    height,width = photo.shape[:2]
+
+    for x in range(height):
+        for y in range(width):
+            colorFound = colorClassifier(photo[x,y,2],photo[x,y,1],photo[x,y,0])
+
+            if(colorFound == "red"):
+                redCount = redCount + 1
+            elif(colorFound == "blue"):
+                blueCount = blueCount + 1
+            elif(colorFound == "green"):
+                greenCount = greenCount + 1
+            elif(colorFound == "yellow"):
+                yellowCount = yellowCount + 1
+            elif(colorFound == "pink"):
+                pinkCount = pinkCount + 1
+            elif(colorFound == "gray"):
+                grayCount = grayCount + 1
+            elif(colorFound == "black"):
+                blackCount = blackCount + 1
+            elif(colorFound == "white"):
+                whiteCount = whiteCount + 1
+
+    print("\nPhoto: " + photoPath)
+    print("Red count: " + str(redCount))
+    print("Blue count: " + str(blueCount))
+    print("Green count: " + str(greenCount))
+    print("Yellow count: " + str(yellowCount))
+    print("Pink count: " + str(pinkCount))
+    print("Gray count: " + str(grayCount))
+    print("Black count: " + str(blackCount))
+    print("White count: " + str(whiteCount))
+
+    colorCount = [redCount,blueCount,greenCount,yellowCount,pinkCount,grayCount,blackCount,whiteCount]
+
+    return colorCount
+
+def processImageFolder(folderPath,catPath):
+    for file in os.listdir(folderPath + catPath):
+        if(file.split(".")[1:] != ['txt'] and file.split(".")[1:] != ['db']):
+            photoData = countingColors(folderPath + catPath + "/" + file)
+            file = file.replace(".","_")
+            nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
+            temp = temp.replace("p", ".")
+            humidity = humidity.replace("p", ".")
+            dewPoint = dewPoint.replace("p", ".")
+            photoData.append(temp)
+            photoData.append(humidity)
+            photoData.append(dewPoint)
+            photoData.append(time)
+            photoData.append(date)
+
+            outFile = open(folderPath + catPath + catPath + ".txt", "a")
+            outFile.write(str(photoData) + "\n")
+            outFile.close()
+
+def processTestData(folderPath):
+    if(os.path.isdir(folderPath)):
+        if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomoly")):
+            processImageFolder(folderPath,"/clear")
+            processImageFolder(folderPath, "/foggy")
+            processImageFolder(folderPath, "/smoky")
+            processImageFolder(folderPath, "/anomoly")
+        else:
+            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomoly. This is case sensitive!")
+    else:
+        print("ERROR! Could not find test data folder!")
+
+def wouldBeMain():
+    processTestData(input("Please enter test data folder: "))
+
+
+#wouldBeMain()
+#processTestData("C:/Users/Amanda/Desktop/testData")
+#print(colorClassifier(228,216,182 )) #Test the color classifier
