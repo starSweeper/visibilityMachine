@@ -124,13 +124,13 @@ def processImageFolder(folderPath,catPath):
 
 def processTestData(folderPath):
     if(os.path.isdir(folderPath)):
-        if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomoly")):
+        if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly")):
             processImageFolder(folderPath,"/clear")
             processImageFolder(folderPath, "/foggy")
             processImageFolder(folderPath, "/smoky")
-            processImageFolder(folderPath, "/anomoly")
+            processImageFolder(folderPath, "/anomaly")
         else:
-            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomoly. This is case sensitive!")
+            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomaly. This is case sensitive!")
     else:
         print("ERROR! Could not find test data folder!")
 
