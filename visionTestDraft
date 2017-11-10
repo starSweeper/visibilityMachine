@@ -6,7 +6,7 @@ import cv2 #OpenCV
 import os #For working with files
 
 #Tells you which color group a pixel belongs in
-#The choices are Red, Blue, Gteen, Yellow, Pink, Gray, Black, and White
+#The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
 def colorClassifier(red,green,blue):
     median = statistics.median([red, blue, green])
 
