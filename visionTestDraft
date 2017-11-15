@@ -6,7 +6,7 @@ import cv2 #OpenCV
 import os #For working with files
 
 #Tells you which color group a pixel belongs in
-#The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
+#The choices are Red, Blue, Gteen, Yellow, Pink, Gray, Black, and White
 def colorClassifier(red,green,blue):
     median = statistics.median([red, blue, green])
 
@@ -112,11 +112,11 @@ def processImageFolder(folderPath,catPath):
             temp = temp.replace("p", ".")
             humidity = humidity.replace("p", ".")
             dewPoint = dewPoint.replace("p", ".")
-            photoData.append(temp)
-            photoData.append(humidity)
-            photoData.append(dewPoint)
-            photoData.append(time)
-            photoData.append(date)
+            photoData.append(float(temp))
+            photoData.append(float(humidity))
+            photoData.append(float(dewPoint))
+            photoData.append(int(time))
+            photoData.append(int(date))
 
             outFile = open(folderPath + catPath + catPath + ".txt", "a")
             outFile.write(str(photoData) + "\n")
@@ -139,5 +139,5 @@ def wouldBeMain():
 
 
 #wouldBeMain()
-#processTestData("C:/Users/Amanda/Desktop/testData")
-#print(colorClassifier(228,216,182 )) #Test the color classifier
+processTestData("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
+#print(colorClassifier(170,155,44)) #Test the color classifier
