@@ -3,11 +3,14 @@
 
 import statistics #For statistics.median()
 import cv2 #OpenCV
+import numpy as np #For SVM
 import os #For working with files
+import datetime #For time and date stamps
+
 
 #Tells you which color group a pixel belongs in
-#The choices are Red, Blue, Gteen, Yellow, Pink, Gray, Black, and White
-def colorClassifier(red,green,blue):
+#The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
+def color_classifier(red,green,blue):
     median = statistics.median([red, blue, green])
 
     #If all colors are within 10 of each other
@@ -55,7 +58,8 @@ def colorClassifier(red,green,blue):
         else:
             return "gray"
 
-def countingColors(photoPath):
+
+def counting_colors(photoPath):
     redCount = 0
     blueCount = 0
     greenCount = 0
@@ -70,7 +74,7 @@ def countingColors(photoPath):
 
     for x in range(height):
         for y in range(width):
-            colorFound = colorClassifier(photo[x,y,2],photo[x,y,1],photo[x,y,0])
+            colorFound = color_classifier(photo[x,y,2],photo[x,y,1],photo[x,y,0])
 
             if(colorFound == "red"):
                 redCount = redCount + 1
@@ -89,24 +93,17 @@ def countingColors(photoPath):
             elif(colorFound == "white"):
                 whiteCount = whiteCount + 1
 
-    print("\nPhoto: " + photoPath)
-    print("Red count: " + str(redCount))
-    print("Blue count: " + str(blueCount))
-    print("Green count: " + str(greenCount))
-    print("Yellow count: " + str(yellowCount))
-    print("Pink count: " + str(pinkCount))
-    print("Gray count: " + str(grayCount))
-    print("Black count: " + str(blackCount))
-    print("White count: " + str(whiteCount))
-
     colorCount = [redCount,blueCount,greenCount,yellowCount,pinkCount,grayCount,blackCount,whiteCount]
 
     return colorCount
 
-def processImageFolder(folderPath,catPath):
+
+def process_image_folder(folderPath,catPath = "" ,testList = [0], labelList = [0]):
+    testData = []
+
     for file in os.listdir(folderPath + catPath):
-        if(file.split(".")[1:] != ['txt'] and file.split(".")[1:] != ['db']):
-            photoData = countingColors(folderPath + catPath + "/" + file)
+        if(file.split(".")[1:] == ['pdf'] or file.split(".")[1:] == ['jpg']):
+            photoData = counting_colors(folderPath + catPath + "/" + file)
             file = file.replace(".","_")
             nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
             temp = temp.replace("p", ".")
@@ -118,26 +115,68 @@ def processImageFolder(folderPath,catPath):
             photoData.append(int(time))
             photoData.append(int(date))
 
-            outFile = open(folderPath + catPath + catPath + ".txt", "a")
-            outFile.write(str(photoData) + "\n")
-            outFile.close()
+            if(catPath != ""):
+                testList.append(photoData)
+                labelList.append(catPath[1:])
+            else:
+                testData.append(photoData)
 
-def processTestData(folderPath):
+
+
+def process_test_data(folderPath):
+    allTestingData = []
+    labels = []
+
     if(os.path.isdir(folderPath)):
         if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly")):
-            processImageFolder(folderPath,"/clear")
-            processImageFolder(folderPath, "/foggy")
-            processImageFolder(folderPath, "/smoky")
-            processImageFolder(folderPath, "/anomaly")
+            print("Processing... Please be patient!\n")
+            process_image_folder(folderPath,"/clear",allTestingData, labels)
+            process_image_folder(folderPath, "/foggy",allTestingData, labels)
+            process_image_folder(folderPath, "/smoky", allTestingData, labels)
+            process_image_folder(folderPath, "/anomaly", allTestingData, labels)
+            print(allTestingData)
+            print(labels)
+            return allTestingData,labels
         else:
             print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomaly. This is case sensitive!")
     else:
         print("ERROR! Could not find test data folder!")
 
-def wouldBeMain():
-    processTestData(input("Please enter test data folder: "))
+
+def classify_image_from_camera():
+    os.popen("raspistill -t 2000 -o -n latestImage.png") #Take image with pi camera
+
+    #ENTER CODE HERE TO GET TEMP AND HUMIDITY FROM PI
+
+    dataFromImage = counting_colors("latestImage.png")
+    #dataFromImage.append(float(ENTER CODE TO GET TEMP))
+    #dataFromImage.append(float(ENTER CODE TO GET HUMIDITY))
+    #dataFromImage.append(float(ENTER CODE TO GET DEW POINT))
+    dataFromImage.append(datetime.datetime.now().strftime("%H%M")) #Append time in 24 hour format with no colin
+    dataFromImage.append(datetime.datetime.now().strftime("%m%d%y")) #Append date in MMDDYY format
+
+    return dataFromImage
+
+
+def classify_images_from_folder(folderPath):
+    if(os.path.isdir(folderPath)):
+        return process_image_folder(folderPath)
+
+def train_svm(trainingData,labels):
+    svm_params = dict( kernel_type = cv2.ml.SVM_LINEAR, svm_type = cv2.ml.SVM_C_SVC, C = 2.67, gamma = 3)
+
+    train = np.asarray(trainingData)
+    svm = cv2.ml.SVM_create()
+    svm.train(train, labels, params=svm_params)
+    svm.save('svm_data.dat')
+
+
+def would_be_main():
+    process_test_data(input("Please enter test data folder: "))
 
 
 #wouldBeMain()
-processTestData("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
+#processTestData("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
+trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford")
+train_svm(trainingList,labelsList)
 #print(colorClassifier(170,155,44)) #Test the color classifier
