@@ -1,59 +1,57 @@
 # Vision Machine draft
-# Test Data Interface
 
-import statistics #For statistics.median()
-import cv2 #OpenCV
-import numpy as np #For SVM
-import os #For working with files
-import datetime #For time and date stamps
+import statistics  # For statistics.median()
+import cv2  # OpenCV
+import numpy as np  # For SVM
+import os  # For working with files
+import datetime  # For time and date stamps
 
 
-#Tells you which color group a pixel belongs in
-#The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
-def color_classifier(red,green,blue):
+# Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
+def color_classifier(red, green, blue):
     median = statistics.median([red, blue, green])
 
-    #If all colors are within 10 of each other
-    if(blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and red <= (median + 10) and red >= (median - 10)):
-        if(median <= 50):
+    # If all colors are within 10 of each other
+    if blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and red <= (median + 10) and red >= (median - 10):
+        if median <= 50:
             return "black"
-        elif(median >= 250):
+        elif median >= 250:
             return "white"
         else:
             return "gray"
-    #If blue and green are within 10 of each other and are the top two numbers
-    elif((max([red,blue,green]) == blue or max([red,blue,green]) == green) and (blue <= (green + 10) and blue >= (green - 10))):
-        if(blue >= 30 and green >= 30):
+    # If blue and green are within 10 of each other and are the top two numbers
+    elif (max([red,blue,green]) == blue or max([red,blue,green]) == green) and (blue <= (green + 10) and blue >= (green - 10)):
+        if blue >= 30 and green >= 30:
             return "blue"
         else:
             return "black"
-    #If red and blue are within 10 of each other and are the top two numbers
-    elif ((max([red, blue, green]) == red or max([red, blue, green]) == blue) and (blue <= (red + 10) and blue >= (red - 10))):
-        if(red >= 40 and blue >= 40):
+    # If red and blue are within 10 of each other and are the top two numbers
+    elif (max([red, blue, green]) == red or max([red, blue, green]) == blue) and (blue <= (red + 10) and blue >= (red - 10)):
+        if red >= 40 and blue >= 40:
             return "pink"
         else:
             return "black"
-    #If red and green are within 10 of each other and are the top two numbers
-    elif ((max([red, blue, green]) == red or max([red, blue, green]) == green) and (green <= (red + 10) and green >= (red - 10))):
-        if(red >= 80 and green >=80):
+    # If red and green are within 10 of each other and are the top two numbers
+    elif (max([red, blue, green]) == red or max([red, blue, green]) == green) and (green <= (red + 10) and green >= (red - 10)):
+        if red >= 80 and green >= 80:
             return "yellow"
         else:
             return "black"
-    #If red is highest
-    elif(max([red,blue,green]) == red):
-        if(min([blue,green]) <= (red - 20)):
+    # If red is highest
+    elif max([red, blue, green]) == red:
+        if min([blue, green]) <= (red - 20):
             return "red"
         else:
             return "gray"
-    #If green is highest
-    elif(max([red,blue,green]) == green):
-        if(min([red,blue,green]) <= (green - 20)):
+    # If green is highest
+    elif max([red, blue, green]) == green:
+        if min([red, blue, green]) <= (green - 20):
             return "green"
         else:
             return "gray"
-    #If blue is highest
-    elif(max([red,blue,green]) == blue):
-        if(min([red,blue,green]) <= (blue - 20)):
+    # If blue is highest
+    elif max([red, blue, green]) == blue:
+        if min([red, blue, green]) <= (blue - 20):
             return "blue"
         else:
             return "gray"
@@ -74,7 +72,7 @@ def counting_colors(photoPath):
 
     for x in range(height):
         for y in range(width):
-            colorFound = color_classifier(photo[x,y,2],photo[x,y,1],photo[x,y,0])
+            colorFound = color_classifier(photo[x, y, 2],photo[x, y, 1],photo[x, y, 0])
 
             if(colorFound == "red"):
                 redCount = redCount + 1
@@ -98,43 +96,47 @@ def counting_colors(photoPath):
     return colorCount
 
 
-def process_image_folder(folderPath,testList = [0], labelList = [0], catPath = ""):
+def process_image(file, testList = [0]):
+    if (file.split(".")[1:] == ['pdf'] or file.split(".")[1:] == ['jpg']):
+        photoData = counting_colors(file)
+        file = file.replace(".", "_")
+        nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
+        temp = temp.replace("p", ".")
+        humidity = humidity.replace("p", ".")
+        dewPoint = dewPoint.replace("p", ".")
+        photoData.append(float(temp))
+        photoData.append(float(humidity))
+        photoData.append(float(dewPoint))
+        photoData.append(int(time))
+        photoData.append(int(date))
+        if testList != [0]:
+            testList.append(photoData)
+        return photoData
 
-    for file in os.listdir(folderPath + catPath):
-        if(file.split(".")[1:] == ['pdf'] or file.split(".")[1:] == ['jpg']):
-            photoData = counting_colors(folderPath + catPath + "/" + file)
-            file = file.replace(".","_")
-            nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
-            temp = temp.replace("p", ".")
-            humidity = humidity.replace("p", ".")
-            dewPoint = dewPoint.replace("p", ".")
-            photoData.append(float(temp))
-            photoData.append(float(humidity))
-            photoData.append(float(dewPoint))
-            photoData.append(int(time))
-            photoData.append(int(date))
 
-            if(catPath != ""):
-                testList.append(photoData)
-                if(catPath == "/clear"):
-                    labelList.append(0)
-                elif(catPath == "/foggy"):
-                    labelList.append(1)
-                elif(catPath == "/smoky"):
-                    labelList.append(2)
-                elif(catPath == "/anomaly"):
-                    labelList.append(3)
-            else:
-                testList.append(photoData)
+def process_image_folder(fpath,testList = [0], labelList = [0], catPath = ""):
 
+    for file in os.listdir(fpath + catPath):
+        photoData = process_image(fpath + catPath + "/" + file)
+        if catPath != "":
+            if catPath == "/clear":
+                labelList.append(0)
+            elif catPath == "/foggy":
+                labelList.append(1)
+            elif catPath == "/smoky":
+                labelList.append(2)
+            elif catPath == "/anomaly":
+                labelList.append(3)
+        else:
+            testList.append(photoData)
 
 
 def process_test_data(folderPath):
     allTestingData = []
     labels = []
 
-    if(os.path.isdir(folderPath)):
-        if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly")):
+    if os.path.isdir(folderPath):
+        if os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly"):
             print("Processing... Please be patient!\n")
             process_image_folder(folderPath, allTestingData, labels, "/clear")
             process_image_folder(folderPath, allTestingData, labels, "/foggy")
@@ -150,14 +152,14 @@ def process_test_data(folderPath):
 def classify_image_from_camera():
     os.popen("raspistill -t 2000 -o -n latestImage.png") #Take image with pi camera
 
-    #ENTER CODE HERE TO GET TEMP AND HUMIDITY FROM PI
+    # ENTER CODE HERE TO GET TEMP AND HUMIDITY FROM PI
 
     dataFromImage = counting_colors("latestImage.png")
-    #dataFromImage.append(float(ENTER CODE TO GET TEMP))
-    #dataFromImage.append(float(ENTER CODE TO GET HUMIDITY))
-    #dataFromImage.append(float(ENTER CODE TO GET DEW POINT))
-    dataFromImage.append(datetime.datetime.now().strftime("%H%M")) #Append time in 24 hour format with no colin
-    dataFromImage.append(datetime.datetime.now().strftime("%m%d%y")) #Append date in MMDDYY format
+    # dataFromImage.append(float(ENTER CODE TO GET TEMP))
+    # dataFromImage.append(float(ENTER CODE TO GET HUMIDITY))
+    # dataFromImage.append(float(ENTER CODE TO GET DEW POINT))
+    dataFromImage.append(datetime.datetime.now().strftime("%H%M")) # Append time in 24 hour format with no colin
+    dataFromImage.append(datetime.datetime.now().strftime("%m%d%y")) # Append date in MMDDYY format
 
     return dataFromImage
 
@@ -170,6 +172,7 @@ def classify_images_from_folder(folderPath):
     else:
         print("Error! Test file not found!")
 
+
 def train_svm(trainingData,labels,testData):
     svm_params = dict( kernel_type = cv2.ml.SVM_LINEAR, svm_type = cv2.ml.SVM_C_SVC, C = 2.67, gamma = 3)
 
@@ -177,13 +180,21 @@ def train_svm(trainingData,labels,testData):
     svm = cv2.ml.SVM_create()
     svm.train(np.array(trainingData, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
     svm.save('svm_data.dat')
+    test_svm(testData)
 
+
+def test_svm(testData):
     #Testing
+    svm = cv2.ml.SVM_load('svm_data.dat')
     result = svm.predict(np.array(testData, np.float32))
-    for image in testData:
-        print(image)
-        svm.predict(image)
     print(result)
+
+
+def predict_using_svm(imageData):
+    dataList = []
+    dataList.append(imageData)
+    svm = cv2.ml.SVM_load('svm_data.dat')
+    return(int(svm.predict(np.asarray(dataList,np.float32))[1]))
 
 
 def would_be_main():
@@ -191,7 +202,8 @@ def would_be_main():
 
 
 #wouldBeMain()
-trainingList, labelsList = process_test_data("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
-#trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford")
-train_svm(trainingList,labelsList,classify_images_from_folder("test/"))
+#trainingList, labelsList = process_test_data("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford") #CassianAndor
+#trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford") #Work computer
+#train_svm(trainingList,labelsList,classify_images_from_folder("test/")) #Train and test SVM
 #print(colorClassifier(170,155,44)) #Test the color classifier
+print(predict_using_svm(process_image("test/medford_82_31_48p9_1359_091509.jpg")))
