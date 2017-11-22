@@ -98,8 +98,7 @@ def counting_colors(photoPath):
     return colorCount
 
 
-def process_image_folder(folderPath,catPath = "" ,testList = [0], labelList = [0]):
-    testData = []
+def process_image_folder(folderPath,testList = [0], labelList = [0], catPath = ""):
 
     for file in os.listdir(folderPath + catPath):
         if(file.split(".")[1:] == ['pdf'] or file.split(".")[1:] == ['jpg']):
@@ -117,9 +116,16 @@ def process_image_folder(folderPath,catPath = "" ,testList = [0], labelList = [0
 
             if(catPath != ""):
                 testList.append(photoData)
-                labelList.append(catPath[1:])
+                if(catPath == "/clear"):
+                    labelList.append(0)
+                elif(catPath == "/foggy"):
+                    labelList.append(1)
+                elif(catPath == "/smoky"):
+                    labelList.append(2)
+                elif(catPath == "/anomaly"):
+                    labelList.append(3)
             else:
-                testData.append(photoData)
+                testList.append(photoData)
 
 
 
@@ -130,12 +136,10 @@ def process_test_data(folderPath):
     if(os.path.isdir(folderPath)):
         if(os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly")):
             print("Processing... Please be patient!\n")
-            process_image_folder(folderPath,"/clear",allTestingData, labels)
-            process_image_folder(folderPath, "/foggy",allTestingData, labels)
-            process_image_folder(folderPath, "/smoky", allTestingData, labels)
-            process_image_folder(folderPath, "/anomaly", allTestingData, labels)
-            print(allTestingData)
-            print(labels)
+            process_image_folder(folderPath, allTestingData, labels, "/clear")
+            process_image_folder(folderPath, allTestingData, labels, "/foggy")
+            process_image_folder(folderPath, allTestingData, labels, "/smoky")
+            process_image_folder(folderPath, allTestingData, labels, "/anomaly")
             return allTestingData,labels
         else:
             print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomaly. This is case sensitive!")
@@ -160,15 +164,26 @@ def classify_image_from_camera():
 
 def classify_images_from_folder(folderPath):
     if(os.path.isdir(folderPath)):
-        return process_image_folder(folderPath)
+        testingData = []
+        process_image_folder(folderPath,testingData)
+        return testingData
+    else:
+        print("Error! Test file not found!")
 
-def train_svm(trainingData,labels):
+def train_svm(trainingData,labels,testData):
     svm_params = dict( kernel_type = cv2.ml.SVM_LINEAR, svm_type = cv2.ml.SVM_C_SVC, C = 2.67, gamma = 3)
 
-    train = np.asarray(trainingData)
+    #Training
     svm = cv2.ml.SVM_create()
-    svm.train(train, labels, params=svm_params)
+    svm.train(np.array(trainingData, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
     svm.save('svm_data.dat')
+
+    #Testing
+    result = svm.predict(np.array(testData, np.float32))
+    for image in testData:
+        print(image)
+        svm.predict(image)
+    print(result)
 
 
 def would_be_main():
@@ -176,7 +191,7 @@ def would_be_main():
 
 
 #wouldBeMain()
-#processTestData("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
-trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford")
-train_svm(trainingList,labelsList)
+trainingList, labelsList = process_test_data("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford")
+#trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford")
+train_svm(trainingList,labelsList,classify_images_from_folder("test/"))
 #print(colorClassifier(170,155,44)) #Test the color classifier
