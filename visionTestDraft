@@ -114,11 +114,12 @@ def process_image(file, testList = [0]):
         return photoData
 
 
-def process_image_folder(fpath,testList = [0], labelList = [0], catPath = ""):
+def process_image_folder(fpath,testList = [-1], labelList = [-1], catPath = ""):
 
     for file in os.listdir(fpath + catPath):
         photoData = process_image(fpath + catPath + "/" + file)
-        if catPath != "":
+
+        if catPath != "" and photoData != None:
             if catPath == "/clear":
                 labelList.append(0)
             elif catPath == "/foggy":
@@ -127,7 +128,7 @@ def process_image_folder(fpath,testList = [0], labelList = [0], catPath = ""):
                 labelList.append(2)
             elif catPath == "/anomaly":
                 labelList.append(3)
-        else:
+
             testList.append(photoData)
 
 
@@ -137,7 +138,7 @@ def process_test_data(folderPath):
 
     if os.path.isdir(folderPath):
         if os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly"):
-            print("Processing... Please be patient!\n")
+            print("Attempting to extract data from images... Please be patient!\n")
             process_image_folder(folderPath, allTestingData, labels, "/clear")
             process_image_folder(folderPath, allTestingData, labels, "/foggy")
             process_image_folder(folderPath, allTestingData, labels, "/smoky")
@@ -173,21 +174,12 @@ def classify_images_from_folder(folderPath):
         print("Error! Test file not found!")
 
 
-def train_svm(trainingData,labels,testData):
-    svm_params = dict( kernel_type = cv2.ml.SVM_LINEAR, svm_type = cv2.ml.SVM_C_SVC, C = 2.67, gamma = 3)
-
-    #Training
+def train_svm(trainingData,labels):
     svm = cv2.ml.SVM_create()
+    print("Training SVM, this may take a while.")
     svm.train(np.array(trainingData, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
+    print("Training complete.")
     svm.save('svm_data.dat')
-    test_svm(testData)
-
-
-def test_svm(testData):
-    #Testing
-    svm = cv2.ml.SVM_load('svm_data.dat')
-    result = svm.predict(np.array(testData, np.float32))
-    print(result)
 
 
 def predict_using_svm(imageData):
@@ -204,6 +196,15 @@ def would_be_main():
 #wouldBeMain()
 #trainingList, labelsList = process_test_data("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford") #CassianAndor
 #trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford") #Work computer
-#train_svm(trainingList,labelsList,classify_images_from_folder("test/")) #Train and test SVM
+#train_svm(trainingList,labelsList) #Train and test SVM
 #print(colorClassifier(170,155,44)) #Test the color classifier
-print(predict_using_svm(process_image("test/medford_82_31_48p9_1359_091509.jpg")))
+
+prediction = predict_using_svm(process_image("test/medford_82_31_48p9_1359_091509.jpg"))
+if prediction == 0:
+    print("Image classified as clear")
+elif prediction == 1:
+    print("Image classified as foggy")
+elif prediction == 2:
+    print("Image classified as smoky")
+else:
+    print("Image classified as an anomaly")
