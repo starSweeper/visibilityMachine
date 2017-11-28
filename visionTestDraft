@@ -5,6 +5,7 @@ import cv2  # OpenCV
 import numpy as np  # For SVM
 import os  # For working with files
 import datetime  # For time and date stamps
+import time
 
 
 # Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
@@ -97,7 +98,7 @@ def counting_colors(photoPath):
 
 
 def process_image(file, testList = [0]):
-    if (file.split(".")[1:] == ['pdf'] or file.split(".")[1:] == ['jpg']):
+    if (file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']):
         photoData = counting_colors(file)
         file = file.replace(".", "_")
         nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
@@ -175,8 +176,16 @@ def classify_images_from_folder(folderPath):
 
 
 def train_svm(trainingData,labels):
+    svm_params = dict(kernel_type=cv2.ml.SVM_LINEAR, svm_type=cv2.ml.SVM_C_SVC, C=2.67, gamma=3)
+
     svm = cv2.ml.SVM_create()
     print("Training SVM, this may take a while.")
+
+    svm.setKernel(cv2.ml.SVM_RBF)
+    svm.setType(cv2.ml.SVM_C_SVC)
+    svm.setC(2.67)
+    svm.setGamma(5)
+
     svm.train(np.array(trainingData, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
     print("Training complete.")
     svm.save('svm_data.dat')
@@ -186,25 +195,38 @@ def predict_using_svm(imageData):
     dataList = []
     dataList.append(imageData)
     svm = cv2.ml.SVM_load('svm_data.dat')
+    print(svm.predict(np.asarray(dataList,np.float32)))
     return(int(svm.predict(np.asarray(dataList,np.float32))[1]))
 
 
-def would_be_main():
-    process_test_data(input("Please enter test data folder: "))
+def prediction_test(folder):
+
+    for photo in os.listdir(folder):
+        if (photo.split(".")[1:] == ['png'] or photo.split(".")[1:] == ['jpg']):
+            print("Processing " + photo)
+
+            prediction = predict_using_svm(process_image(folder + photo))
+
+            image = cv2.imread(folder + photo)
+
+            if prediction == 0:
+                print("Image classified as clear")
+                cv2.imshow("Clear", image)
+            elif prediction == 1:
+                print("Image classified as foggy")
+                cv2.imshow("Foggy", image)
+            elif prediction == 2:
+                print("Image classified as smoky")
+                cv2.imshow("Smoky", image)
+            else:
+                print("Image classified as an anomaly")
+                cv2.imshow("Anomaly", image)
+
+            cv2.waitKey(1)
+            time.sleep(5)
+            cv2.destroyAllWindows()
 
 
-#wouldBeMain()
-#trainingList, labelsList = process_test_data("C:/Users/Amanda/Documents/GitHub/visibilityMachine/testData/medford") #CassianAndor
-#trainingList, labelsList = process_test_data("C:/Users/apanell/Documents/GitHub/visibilityMachine/testData/medford") #Work computer
+#trainingList, labelsList = process_test_data("testData/medford")
 #train_svm(trainingList,labelsList) #Train and test SVM
-#print(colorClassifier(170,155,44)) #Test the color classifier
-
-prediction = predict_using_svm(process_image("test/medford_82_31_48p9_1359_091509.jpg"))
-if prediction == 0:
-    print("Image classified as clear")
-elif prediction == 1:
-    print("Image classified as foggy")
-elif prediction == 2:
-    print("Image classified as smoky")
-else:
-    print("Image classified as an anomaly")
+prediction_test("test/")
