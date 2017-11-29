@@ -141,9 +141,13 @@ def process_test_data(folderPath):
         if os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly"):
             print("Attempting to extract data from images... Please be patient!\n")
             process_image_folder(folderPath, allTestingData, labels, "/clear")
+            print("clear")
             process_image_folder(folderPath, allTestingData, labels, "/foggy")
+            print("foggy")
             process_image_folder(folderPath, allTestingData, labels, "/smoky")
+            print("clear")
             process_image_folder(folderPath, allTestingData, labels, "/anomaly")
+            print("Data extraction complete.")
             return allTestingData,labels
         else:
             print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomaly. This is case sensitive!")
@@ -176,8 +180,6 @@ def classify_images_from_folder(folderPath):
 
 
 def train_svm(trainingData,labels):
-    svm_params = dict(kernel_type=cv2.ml.SVM_LINEAR, svm_type=cv2.ml.SVM_C_SVC, C=2.67, gamma=3)
-
     svm = cv2.ml.SVM_create()
     print("Training SVM, this may take a while.")
 
@@ -198,6 +200,32 @@ def predict_using_svm(imageData):
     print(svm.predict(np.asarray(dataList,np.float32)))
     return(int(svm.predict(np.asarray(dataList,np.float32))[1]))
 
+
+def min_max_normalization(values, newmax, newmin):
+    minvalue = min(values)
+    maxvalue = max(values)
+    normalzedlist = []
+
+    for x in range(len(values)):
+        normalzedlist.append(((values[x] - minvalue) / (maxvalue - minvalue)) * (newmax - newmin) + newmin)
+
+    return normalzedlist
+
+
+def normalize_attributes(listofattributeslist):
+    print("normalize_attributes")
+    lists = []
+
+    for eachone in listofattributeslist[0]:
+        templist = []
+        lists.append(templist)
+
+    for listofattributes in listofattributeslist: #For each list of attributes
+        print("papers, please")
+        for i in range(len(listofattributes)):
+            lists[i].append(listofattributes[i])
+
+    print(lists)
 
 def prediction_test(folder):
 
@@ -227,6 +255,7 @@ def prediction_test(folder):
             cv2.destroyAllWindows()
 
 
-#trainingList, labelsList = process_test_data("testData/medford")
+trainingList, labelsList = process_test_data("testData/medford")
+normalize_attributes(trainingList)
 #train_svm(trainingList,labelsList) #Train and test SVM
 prediction_test("test/")
