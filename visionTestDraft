@@ -69,7 +69,11 @@ def counting_colors(photoPath):
     whiteCount = 0
 
     photo = cv2.imread(photoPath,1)
-    height,width = photo.shape[:2]
+
+    if photo.size != 230400:
+        photo = cv2.resize(photo, (240,320))
+
+    height, width = photo.shape[:2]
 
     for x in range(height):
         for y in range(width):
@@ -92,24 +96,26 @@ def counting_colors(photoPath):
             elif(colorFound == "white"):
                 whiteCount = whiteCount + 1
 
-    colorCount = [redCount,blueCount,greenCount,yellowCount,pinkCount,grayCount,blackCount,whiteCount]
+    colorCount = [min_max_normalization(redCount),min_max_normalization(blueCount),min_max_normalization(greenCount),min_max_normalization(yellowCount),min_max_normalization(pinkCount),min_max_normalization(grayCount),min_max_normalization(blackCount),min_max_normalization(whiteCount)]
 
     return colorCount
 
 
 def process_image(file, testList = [0]):
     if (file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']):
+
         photoData = counting_colors(file)
         file = file.replace(".", "_")
         nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
         temp = temp.replace("p", ".")
         humidity = humidity.replace("p", ".")
         dewPoint = dewPoint.replace("p", ".")
-        photoData.append(float(temp))
-        photoData.append(float(humidity))
-        photoData.append(float(dewPoint))
-        photoData.append(int(time))
-        photoData.append(int(date))
+        photoData.append(min_max_normalization(float(temp)))
+        photoData.append(min_max_normalization(float(humidity)))
+        photoData.append(min_max_normalization(float(dewPoint)))
+        photoData.append(min_max_normalization(int(time)))
+        photoData.append(min_max_normalization(int(date)))
+
         if testList != [0]:
             testList.append(photoData)
         return photoData
@@ -197,35 +203,12 @@ def predict_using_svm(imageData):
     dataList = []
     dataList.append(imageData)
     svm = cv2.ml.SVM_load('svm_data.dat')
-    print(svm.predict(np.asarray(dataList,np.float32)))
     return(int(svm.predict(np.asarray(dataList,np.float32))[1]))
 
 
-def min_max_normalization(values, newmax, newmin):
-    minvalue = min(values)
-    maxvalue = max(values)
-    normalzedlist = []
+def min_max_normalization(value):
+    return (((value - 0) / (500000 - 0)) * (1 - (-1)) + (-1))
 
-    for x in range(len(values)):
-        normalzedlist.append(((values[x] - minvalue) / (maxvalue - minvalue)) * (newmax - newmin) + newmin)
-
-    return normalzedlist
-
-
-def normalize_attributes(listofattributeslist):
-    print("normalize_attributes")
-    lists = []
-
-    for eachone in listofattributeslist[0]:
-        templist = []
-        lists.append(templist)
-
-    for listofattributes in listofattributeslist: #For each list of attributes
-        print("papers, please")
-        for i in range(len(listofattributes)):
-            lists[i].append(listofattributes[i])
-
-    print(lists)
 
 def prediction_test(folder):
 
@@ -255,7 +238,6 @@ def prediction_test(folder):
             cv2.destroyAllWindows()
 
 
-trainingList, labelsList = process_test_data("testData/medford")
-normalize_attributes(trainingList)
+#trainingList, labelsList = process_test_data("testData/medford")
 #train_svm(trainingList,labelsList) #Train and test SVM
 prediction_test("test/")
