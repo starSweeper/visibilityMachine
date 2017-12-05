@@ -211,13 +211,11 @@ def min_max_normalization(value):
 
 
 def prediction_test(folder):
-
     for photo in os.listdir(folder):
         if (photo.split(".")[1:] == ['png'] or photo.split(".")[1:] == ['jpg']):
             print("Processing " + photo)
 
             prediction = predict_using_svm(process_image(folder + photo))
-
             image = cv2.imread(folder + photo)
 
             if prediction == 0:
@@ -238,6 +236,16 @@ def prediction_test(folder):
             cv2.destroyAllWindows()
 
 
-#trainingList, labelsList = process_test_data("testData/medford")
-#train_svm(trainingList,labelsList) #Train and test SVM
+def find_distance_to_object(image, height_of_lens, distance_in_pixels):
+    photo = cv2.imread(image)
+    height, width = photo.shape[:2]
+    angle_of_view = 0  # enter code to find this!
+    angle_to_object = (angle_of_view/(height**2 + width**2)) * distance_in_pixels
+    third_angle = 180 - (90 + angle_to_object)
+    return third_angle * height_of_lens
+
+
+
+# trainingList, labelsList = process_test_data("testData/medford")
+# train_svm(trainingList,labelsList) #Train and test SVM
 prediction_test("test/")
