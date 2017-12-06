@@ -6,6 +6,8 @@ import numpy as np  # For SVM
 import os  # For working with files
 import datetime  # For time and date stamps
 import time
+import math
+from pkg_resources import require
 
 
 # Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
@@ -239,13 +241,19 @@ def prediction_test(folder):
 def find_distance_to_object(image, height_of_lens, distance_in_pixels):
     photo = cv2.imread(image)
     height, width = photo.shape[:2]
-    angle_of_view = 0  # enter code to find this!
-    angle_to_object = (angle_of_view/(height**2 + width**2)) * distance_in_pixels
+    angle_of_view = math.degrees(2 * math.atan(3.76/(2*3.60)))  #Raspberry pi v1 cam assummed
+    angle_to_object = (angle_of_view/(math.sqrt(((height**2) + (width**2)))) * distance_in_pixels)
     third_angle = 180 - (90 + angle_to_object)
-    return third_angle * height_of_lens
+    print(height)
+    print(width)
+    print(angle_of_view)
+    print(angle_to_object)
+    print(third_angle)
+    return height_of_lens / math.tan(third_angle)
 
 
 
 # trainingList, labelsList = process_test_data("testData/medford")
 # train_svm(trainingList,labelsList) #Train and test SVM
-prediction_test("test/")
+#prediction_test("test/")
+print(find_distance_to_object('C:/Temp/laser.png',6.5,3))
