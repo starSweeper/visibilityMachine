@@ -120,6 +120,7 @@ def process_image(file, testList = [0]):
 
         if testList != [0]:
             testList.append(photoData)
+        print(photoData)
         return photoData
 
 
@@ -253,7 +254,7 @@ def find_distance_to_object(image, height_of_lens, distance_in_pixels):
 
 
 
-# trainingList, labelsList = process_test_data("testData/medford")
+#  trainingList, labelsList = process_test_data("testData/medford")
 # train_svm(trainingList,labelsList) #Train and test SVM
-#prediction_test("test/")
-print(find_distance_to_object('C:/Temp/laser.png',6.5,3))
+prediction_test("test/")
+# print(find_distance_to_object('C:/Temp/laser.png',6.5,3))
