@@ -6,6 +6,7 @@ import numpy as np  # For SVM
 import os  # For working with files
 import datetime  # For time and date stamps
 import time
+import sys
 
 
 # Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
@@ -199,8 +200,8 @@ def train_svm(training_data, labels):
     svm.setGamma(115)
 
     svm.train(np.array(training_data, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
-    print("Training complete.")
     svm.save('svm_data.dat')
+    print("Training complete.\n")
 
 
 def predict_using_svm(image_data):
@@ -211,33 +212,6 @@ def predict_using_svm(image_data):
 
 def min_max_normalization(value):
     return ((value - 0) / (500000 - 0)) * (1 - (-1)) + (-1)
-
-
-def prediction_test(folder):
-    for photo in os.listdir(folder):
-        if photo.split(".")[1:] == ['png'] or photo.split(".")[1:] == ['jpg']:
-            print("Processing " + photo)
-
-            prediction = predict_using_svm(process_image(folder + photo))
-
-            image = cv2.imread(folder + photo)
-
-            if prediction == 0:
-                print("Image classified as clear")
-                cv2.imshow("Clear", image)
-            elif prediction == 1:
-                print("Image classified as foggy")
-                cv2.imshow("Foggy", image)
-            elif prediction == 2:
-                print("Image classified as smoky")
-                cv2.imshow("Smoky", image)
-            else:
-                print("Image classified as an anomaly")
-                cv2.imshow("Anomaly", image)
-
-            cv2.waitKey(1)
-            time.sleep(5)
-            cv2.destroyAllWindows()
 
 
 def test_accuracy(folder):
@@ -265,8 +239,8 @@ def test_accuracy(folder):
         print("ERROR! Could not find test data folder!")
 
     mask = []
-    print(labels)
-    print(result)
+    print("Labels:  " + str(labels))
+    print("Results: " + str(result))
 
     for i in range(len(labels)):
         if labels[i] != result[i]:
@@ -274,12 +248,64 @@ def test_accuracy(folder):
         else:
             mask.append(1)
 
-    print(mask)
+    print("Mask:    " + str(mask))
     correct = np.count_nonzero(mask)
     return correct*100.0/len(result)
 
 
-trainingList, labelsList = process_test_data("trainingData")  # Process training data
-train_svm(trainingList, labelsList)  # Train SVM (requires processed training data)
-# prediction_test("test/")  # Make individual predictions for each image in folder
-print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.")  # Test SVM
+def user_interface():
+    print("Welcome to visionMachine!\nWhat would you like to do?\n")
+    print("1. Train SVM (requires a folder of training images)")
+    print("2. Test SVM (requires a folder of test images)")
+    print("3. Predict an individual photo (requires a single image)")
+    print("4. Exit\n")
+
+    response = int(input("Please enter your selection: "))
+
+    if response == 1:
+        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
+                 "or any other character to enter your own: ").lower() == "y":
+            training_list, labels_list = process_test_data("trainingData")  # Process training data
+        else:
+            user_folder = input("Enter test image folder. Folder MUST have a 'clear' sub-folder, "
+                                "a 'foggy' sub-folder, and a 'smoky' sub-folder: ")
+            training_list, labels_list = process_test_data(user_folder)  # Process training data
+        print("\n")
+        train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
+        user_interface()
+    elif response == 2:
+        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
+                 "or any other character to enter your own: ").lower() == "y":
+            print("\n")
+            print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.\n")  # Test SVM
+            user_interface()
+        else:
+            user_folder = input("Enter test image folder. Folder MUST have a 'clear' sub-folder, "
+                                "a 'foggy' sub-folder, and a 'smoky' sub-folder: ")
+            print("\n")
+            print("SVM was " + str(round(test_accuracy(user_folder), 2)) + "% accurate.\n")  # Test SVM
+            user_interface()
+    elif response == 3:
+        prediction = predict_using_svm(process_image(input("Please enter image path: ")))
+        print("\n")
+        if prediction == 0:
+            print("Image classified as clear.\n")
+        elif prediction == 1:
+            print("Image classified as foggy.\n")
+        elif prediction == 2:
+            print("Image classified as smoky.\n")
+
+        user_interface()
+    elif response == 4:
+        print("\nAs if you didn't know how to use the exit button. Lazy.")
+        sys.exit(0)
+    else:
+        print("That was not a valid selection. Please try again!\n")
+        user_interface()
+
+
+user_interface()
+# Testing and development "interface"
+# training_list, labels_list = process_test_data("trainingData")  # Process training data
+# train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
+# print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.")  # Test SVM
