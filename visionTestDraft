@@ -1,12 +1,12 @@
 # Vision Machine draft
+# Developed by Amanda Joy Panell in collaboration with Emily Kelly and Jon Fenn
 
 import statistics  # For statistics.median()
 import cv2  # OpenCV
 import numpy as np  # For SVM
 import os  # For working with files
 import datetime  # For time and date stamps
-import time
-import sys
+import sys  # For system exit
 
 
 # Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
@@ -63,6 +63,7 @@ def color_classifier(red, green, blue):
             return "gray"
 
 
+# Counts how many pixels of colors we are interested in are in each photo
 def counting_colors(photo_path):
     red_count = 0
     blue_count = 0
@@ -73,16 +74,19 @@ def counting_colors(photo_path):
     black_count = 0
     white_count = 0
 
-    photo = cv2.imread(photo_path, 1)
+    photo = cv2.imread(photo_path, 1)  # Read image
 
+    # Resize image if too big or to small. (For consistency between images)
     if photo.size != 230400:
         photo = cv2.resize(photo, (240, 320))
 
+    # Get the height and width (in pixels) of the image
     height, width = photo.shape[:2]
 
+    # For ever pixel
     for x in range(height):
         for y in range(width):
-            color_found = color_classifier(photo[x, y, 2], photo[x, y, 1], photo[x, y, 0])
+            color_found = color_classifier(photo[x, y, 2], photo[x, y, 1], photo[x, y, 0])  # Label pixel as a color
 
             if color_found == "red":
                 red_count = red_count + 1
@@ -101,6 +105,7 @@ def counting_colors(photo_path):
             elif color_found == "white":
                 white_count = white_count + 1
 
+    # Create list of normalized color counts
     color_count = [min_max_normalization(red_count), min_max_normalization(blue_count),
                    min_max_normalization(green_count), min_max_normalization(yellow_count),
                    min_max_normalization(pink_count), min_max_normalization(gray_count),
@@ -109,28 +114,33 @@ def counting_colors(photo_path):
     return color_count
 
 
-def process_image(file, test_list=[0]):
-    if file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']:
+# Gets list of data from each image
+def process_image(file):
+    if file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']:  # Only process png and jpg files
 
-        photo_data = counting_colors(file)
-        file = file.replace(".", "_")
-        nickname, temp, humidity, dew_point, time_of_photo, date, extension = file.split("_")
+        photo_data = counting_colors(file)  # Create data list and add to it a count of colors found in each image
+        file = file.replace(".", "_")  # Replace '.' with '_'
+        nickname, temp, humidity, dew_point, time_of_photo, date, extension = file.split("_")  # Parse file name
+
+        # Replace any 'p' character found in the temperature, humidity, or dew point with a '.'
         temp = temp.replace("p", ".")
         humidity = humidity.replace("p", ".")
         dew_point = dew_point.replace("p", ".")
+
+        # Add normalized data to the image data list
         photo_data.append(min_max_normalization(float(temp)))
         photo_data.append(min_max_normalization(float(humidity)))
         photo_data.append(min_max_normalization(float(dew_point)))
         photo_data.append(min_max_normalization(int(time_of_photo)))
         photo_data.append(min_max_normalization(int(date)))
 
-        if test_list != [0]:
-            test_list.append(photo_data)
         return photo_data
 
 
+# Process a folder full of images
 def process_image_folder(f_path, test_list, label_list, cat_path=""):
 
+    # Process each image in folder
     for file in os.listdir(f_path + cat_path):
         photo_data = process_image(f_path + cat_path + "/" + file)
 
@@ -144,9 +154,10 @@ def process_image_folder(f_path, test_list, label_list, cat_path=""):
             elif cat_path == "/anomaly":
                 label_list.append(3)
 
-            test_list.append(photo_data)
+            test_list.append(photo_data)  # Add each list to full list of image data
 
 
+# Makes sure folder meets the proper requirements before it can be processed
 def process_test_data(folder_path):
     all_testing_data = []
     labels = []
@@ -166,12 +177,13 @@ def process_test_data(folder_path):
         print("ERROR! Could not find test data folder!")
 
 
+# NOT COMPLETE! Will be the function that the Raspberry Pi will use to classify new images when in the field.
 def classify_image_from_camera():
     os.popen("raspistill -t 2000 -o -n latestImage.png")  # Take image with pi camera
 
     # ENTER CODE HERE TO GET TEMP AND HUMIDITY FROM PI
 
-    data_from_image = counting_colors("latestImage.png")
+    data_from_image = counting_colors("latestImage.png")  # Count the colors found in image
     # data_from_image.append(float(ENTER CODE TO GET TEMP))
     # data_from_image.append(float(ENTER CODE TO GET HUMIDITY))
     # data_from_image.append(float(ENTER CODE TO GET DEW POINT))
@@ -181,19 +193,12 @@ def classify_image_from_camera():
     return data_from_image
 
 
-def classify_images_from_folder(folder_path):
-    if os.path.isdir(folder_path):
-        testing_data = []
-        process_image_folder(folder_path, testing_data)
-        return testing_data
-    else:
-        print("Error! Test file not found!")
-
-
+# Train the SVM
 def train_svm(training_data, labels):
     svm = cv2.ml.SVM_create()
     print("Training SVM...")
 
+    # Set parameters
     svm.setKernel(cv2.ml.SVM_RBF)
     svm.setType(cv2.ml.SVM_C_SVC)
     svm.setC(10)
@@ -204,16 +209,19 @@ def train_svm(training_data, labels):
     print("Training complete.\n")
 
 
+# Classify a single image (based on its data after being processed)
 def predict_using_svm(image_data):
     data_list = [image_data]
     svm = cv2.ml.SVM_load('svm_data.dat')
-    return int(svm.predict(np.asarray(data_list, np.float32))[1])
+    return int(svm.predict(np.asarray(data_list, np.float32))[1])  # Returns the classification. Will be an int.
 
 
+# Normalize data using min-max normalization
 def min_max_normalization(value):
     return ((value - 0) / (500000 - 0)) * (1 - (-1)) + (-1)
 
 
+# Test the accuracy of the SVM
 def test_accuracy(folder):
     testing_data = []
     labels = []
@@ -253,6 +261,7 @@ def test_accuracy(folder):
     return correct*100.0/len(result)
 
 
+# A (hopefully) easy to use interface. Main menu.
 def user_interface():
     print("Welcome to visionMachine!\nWhat would you like to do?\n")
     print("1. Train SVM (requires a folder of training images)")
@@ -305,7 +314,3 @@ def user_interface():
 
 
 user_interface()
-# Testing and development "interface"
-# training_list, labels_list = process_test_data("trainingData")  # Process training data
-# train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
-# print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.")  # Test SVM
