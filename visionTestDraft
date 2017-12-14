@@ -13,7 +13,8 @@ def color_classifier(red, green, blue):
     median = statistics.median([red, blue, green])
 
     # If all colors are within 10 of each other
-    if blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and red <= (median + 10) and red >= (median - 10):
+    if blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and \
+            red <= (median + 10) and red >= (median - 10):
         if median <= 50:
             return "black"
         elif median >= 250:
@@ -21,19 +22,22 @@ def color_classifier(red, green, blue):
         else:
             return "gray"
     # If blue and green are within 10 of each other and are the top two numbers
-    elif (max([red,blue,green]) == blue or max([red,blue,green]) == green) and (blue <= (green + 10) and blue >= (green - 10)):
+    elif (max([red, blue, green]) == blue or max([red, blue, green]) == green) and \
+            (blue <= (green + 10) and blue >= (green - 10)):
         if blue >= 30 and green >= 30:
             return "blue"
         else:
             return "black"
     # If red and blue are within 10 of each other and are the top two numbers
-    elif (max([red, blue, green]) == red or max([red, blue, green]) == blue) and (blue <= (red + 10) and blue >= (red - 10)):
+    elif (max([red, blue, green]) == red or max([red, blue, green]) == blue) and \
+            (blue <= (red + 10) and blue >= (red - 10)):
         if red >= 40 and blue >= 40:
             return "pink"
         else:
             return "black"
     # If red and green are within 10 of each other and are the top two numbers
-    elif (max([red, blue, green]) == red or max([red, blue, green]) == green) and (green <= (red + 10) and green >= (red - 10)):
+    elif (max([red, blue, green]) == red or max([red, blue, green]) == green) and \
+            (green <= (red + 10) and green >= (red - 10)):
         if red >= 80 and green >= 80:
             return "yellow"
         else:
@@ -58,162 +62,160 @@ def color_classifier(red, green, blue):
             return "gray"
 
 
-def counting_colors(photoPath):
-    redCount = 0
-    blueCount = 0
-    greenCount = 0
-    yellowCount = 0
-    pinkCount = 0
-    grayCount = 0
-    blackCount = 0
-    whiteCount = 0
+def counting_colors(photo_path):
+    red_count = 0
+    blue_count = 0
+    green_count = 0
+    yellow_count = 0
+    pink_count = 0
+    gray_count = 0
+    black_count = 0
+    white_count = 0
 
-    photo = cv2.imread(photoPath,1)
+    photo = cv2.imread(photo_path, 1)
 
     if photo.size != 230400:
-        photo = cv2.resize(photo, (240,320))
+        photo = cv2.resize(photo, (240, 320))
 
     height, width = photo.shape[:2]
 
     for x in range(height):
         for y in range(width):
-            colorFound = color_classifier(photo[x, y, 2],photo[x, y, 1],photo[x, y, 0])
+            color_found = color_classifier(photo[x, y, 2], photo[x, y, 1], photo[x, y, 0])
 
-            if(colorFound == "red"):
-                redCount = redCount + 1
-            elif(colorFound == "blue"):
-                blueCount = blueCount + 1
-            elif(colorFound == "green"):
-                greenCount = greenCount + 1
-            elif(colorFound == "yellow"):
-                yellowCount = yellowCount + 1
-            elif(colorFound == "pink"):
-                pinkCount = pinkCount + 1
-            elif(colorFound == "gray"):
-                grayCount = grayCount + 1
-            elif(colorFound == "black"):
-                blackCount = blackCount + 1
-            elif(colorFound == "white"):
-                whiteCount = whiteCount + 1
+            if color_found == "red":
+                red_count = red_count + 1
+            elif color_found == "blue":
+                blue_count = blue_count + 1
+            elif color_found == "green":
+                green_count = green_count + 1
+            elif color_found == "yellow":
+                yellow_count = yellow_count + 1
+            elif color_found == "pink":
+                pink_count = pink_count + 1
+            elif color_found == "gray":
+                gray_count = gray_count + 1
+            elif color_found == "black":
+                black_count = black_count + 1
+            elif color_found == "white":
+                white_count = white_count + 1
 
-    colorCount = [min_max_normalization(redCount),min_max_normalization(blueCount),min_max_normalization(greenCount),min_max_normalization(yellowCount),min_max_normalization(pinkCount),min_max_normalization(grayCount),min_max_normalization(blackCount),min_max_normalization(whiteCount)]
+    color_count = [min_max_normalization(red_count), min_max_normalization(blue_count),
+                   min_max_normalization(green_count), min_max_normalization(yellow_count),
+                   min_max_normalization(pink_count), min_max_normalization(gray_count),
+                   min_max_normalization(black_count), min_max_normalization(white_count)]
 
-    return colorCount
+    return color_count
 
 
-def process_image(file, testList = [0]):
-    if (file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']):
+def process_image(file, test_list=[0]):
+    if file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']:
 
-        photoData = counting_colors(file)
+        photo_data = counting_colors(file)
         file = file.replace(".", "_")
-        nickname, temp, humidity, dewPoint, time, date, extension = file.split("_")
+        nickname, temp, humidity, dew_point, time_of_photo, date, extension = file.split("_")
         temp = temp.replace("p", ".")
         humidity = humidity.replace("p", ".")
-        dewPoint = dewPoint.replace("p", ".")
-        photoData.append(min_max_normalization(float(temp)))
-        photoData.append(min_max_normalization(float(humidity)))
-        photoData.append(min_max_normalization(float(dewPoint)))
-        photoData.append(min_max_normalization(int(time)))
-        photoData.append(min_max_normalization(int(date)))
+        dew_point = dew_point.replace("p", ".")
+        photo_data.append(min_max_normalization(float(temp)))
+        photo_data.append(min_max_normalization(float(humidity)))
+        photo_data.append(min_max_normalization(float(dew_point)))
+        photo_data.append(min_max_normalization(int(time_of_photo)))
+        photo_data.append(min_max_normalization(int(date)))
 
-        if testList != [0]:
-            testList.append(photoData)
-        return photoData
-
-
-def process_image_folder(fpath,testList = [-1], labelList = [-1], catPath = ""):
-
-    for file in os.listdir(fpath + catPath):
-        photoData = process_image(fpath + catPath + "/" + file)
-
-        if catPath != "" and photoData != None:
-            if catPath == "/clear":
-                labelList.append(0)
-            elif catPath == "/foggy":
-                labelList.append(1)
-            elif catPath == "/smoky":
-                labelList.append(2)
-            elif catPath == "/anomaly":
-                labelList.append(3)
-
-            testList.append(photoData)
+        if test_list != [0]:
+            test_list.append(photo_data)
+        return photo_data
 
 
-def process_test_data(folderPath):
-    allTestingData = []
+def process_image_folder(f_path, test_list, label_list, cat_path=""):
+
+    for file in os.listdir(f_path + cat_path):
+        photo_data = process_image(f_path + cat_path + "/" + file)
+
+        if cat_path != "" and photo_data is not None:
+            if cat_path == "/clear":
+                label_list.append(0)
+            elif cat_path == "/foggy":
+                label_list.append(1)
+            elif cat_path == "/smoky":
+                label_list.append(2)
+            elif cat_path == "/anomaly":
+                label_list.append(3)
+
+            test_list.append(photo_data)
+
+
+def process_test_data(folder_path):
+    all_testing_data = []
     labels = []
 
-    if os.path.isdir(folderPath):
-        if os.path.isdir(folderPath + "/clear") and os.path.isdir(folderPath + "/foggy") and os.path.isdir(folderPath + "/smoky") and os.path.isdir(folderPath + "/anomaly"):
-            print("Attempting to extract data from images... Please be patient!\n")
-            process_image_folder(folderPath, allTestingData, labels, "/clear")
-            print("clear")
-            process_image_folder(folderPath, allTestingData, labels, "/foggy")
-            print("foggy")
-            process_image_folder(folderPath, allTestingData, labels, "/smoky")
-            print("clear")
-            process_image_folder(folderPath, allTestingData, labels, "/anomaly")
+    if os.path.isdir(folder_path):
+        if os.path.isdir(folder_path + "/clear") and os.path.isdir(folder_path + "/foggy") \
+                and os.path.isdir(folder_path + "/smoky"):
+            print("Attempting to extract data from images... Please be patient!")
+            process_image_folder(folder_path, all_testing_data, labels, "/clear")
+            process_image_folder(folder_path, all_testing_data, labels, "/foggy")
+            process_image_folder(folder_path, all_testing_data, labels, "/smoky")
             print("Data extraction complete.")
-            return allTestingData,labels
+            return all_testing_data, labels
         else:
-            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky, anomaly. This is case sensitive!")
+            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky. This is case sensitive!")
     else:
         print("ERROR! Could not find test data folder!")
 
 
 def classify_image_from_camera():
-    os.popen("raspistill -t 2000 -o -n latestImage.png") #Take image with pi camera
+    os.popen("raspistill -t 2000 -o -n latestImage.png")  # Take image with pi camera
 
     # ENTER CODE HERE TO GET TEMP AND HUMIDITY FROM PI
 
-    dataFromImage = counting_colors("latestImage.png")
-    # dataFromImage.append(float(ENTER CODE TO GET TEMP))
-    # dataFromImage.append(float(ENTER CODE TO GET HUMIDITY))
-    # dataFromImage.append(float(ENTER CODE TO GET DEW POINT))
-    dataFromImage.append(datetime.datetime.now().strftime("%H%M")) # Append time in 24 hour format with no colin
-    dataFromImage.append(datetime.datetime.now().strftime("%m%d%y")) # Append date in MMDDYY format
+    data_from_image = counting_colors("latestImage.png")
+    # data_from_image.append(float(ENTER CODE TO GET TEMP))
+    # data_from_image.append(float(ENTER CODE TO GET HUMIDITY))
+    # data_from_image.append(float(ENTER CODE TO GET DEW POINT))
+    data_from_image.append(datetime.datetime.now().strftime("%H%M"))  # Append time in 24 hour format with no colin
+    data_from_image.append(datetime.datetime.now().strftime("%m%d%y"))  # Append date in MMDDYY format
 
-    return dataFromImage
+    return data_from_image
 
 
-def classify_images_from_folder(folderPath):
-    if(os.path.isdir(folderPath)):
-        testingData = []
-        process_image_folder(folderPath,testingData)
-        return testingData
+def classify_images_from_folder(folder_path):
+    if os.path.isdir(folder_path):
+        testing_data = []
+        process_image_folder(folder_path, testing_data)
+        return testing_data
     else:
         print("Error! Test file not found!")
 
 
-def train_svm(trainingData,labels):
+def train_svm(training_data, labels):
     svm = cv2.ml.SVM_create()
-    print("Training SVM, this may take a while.")
+    print("Training SVM...")
 
     svm.setKernel(cv2.ml.SVM_RBF)
     svm.setType(cv2.ml.SVM_C_SVC)
-    svm.setC(2.67)
-    svm.setGamma(5)
+    svm.setC(10)
+    svm.setGamma(115)
 
-    svm.train(np.array(trainingData, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
+    svm.train(np.array(training_data, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
     print("Training complete.")
     svm.save('svm_data.dat')
 
 
-def predict_using_svm(imageData):
-    dataList = []
-    dataList.append(imageData)
+def predict_using_svm(image_data):
+    data_list = [image_data]
     svm = cv2.ml.SVM_load('svm_data.dat')
-    return(int(svm.predict(np.asarray(dataList,np.float32))[1]))
+    return int(svm.predict(np.asarray(data_list, np.float32))[1])
 
 
 def min_max_normalization(value):
-    return (((value - 0) / (500000 - 0)) * (1 - (-1)) + (-1))
+    return ((value - 0) / (500000 - 0)) * (1 - (-1)) + (-1)
 
 
 def prediction_test(folder):
-
     for photo in os.listdir(folder):
-        if (photo.split(".")[1:] == ['png'] or photo.split(".")[1:] == ['jpg']):
+        if photo.split(".")[1:] == ['png'] or photo.split(".")[1:] == ['jpg']:
             print("Processing " + photo)
 
             prediction = predict_using_svm(process_image(folder + photo))
@@ -238,6 +240,46 @@ def prediction_test(folder):
             cv2.destroyAllWindows()
 
 
-#trainingList, labelsList = process_test_data("testData/medford")
-#train_svm(trainingList,labelsList) #Train and test SVM
-prediction_test("test/")
+def test_accuracy(folder):
+    testing_data = []
+    labels = []
+    result = []
+
+    if os.path.isdir(folder):
+        if os.path.isdir(folder + "/clear") and os.path.isdir(folder + "/foggy") and os.path.isdir(
+                        folder + "/smoky"):
+            print("Preparing test data... This may take a while")
+            process_image_folder(folder, testing_data, labels, "/clear")
+            process_image_folder(folder, testing_data, labels, "/foggy")
+            process_image_folder(folder, testing_data, labels, "/smoky")
+            print("Data extraction complete.")
+
+            svm = cv2.ml.SVM_load('svm_data.dat')
+            for i in testing_data:
+                temp_list = [i]
+                result.append(int(svm.predict(np.asarray(temp_list, np.float32))[1]))
+        else:
+            print(
+                "ERROR! Test data not complete! Folders needed: clear, foggy, smoky. This is case sensitive!")
+    else:
+        print("ERROR! Could not find test data folder!")
+
+    mask = []
+    print(labels)
+    print(result)
+
+    for i in range(len(labels)):
+        if labels[i] != result[i]:
+            mask.append(0)
+        else:
+            mask.append(1)
+
+    print(mask)
+    correct = np.count_nonzero(mask)
+    return correct*100.0/len(result)
+
+
+trainingList, labelsList = process_test_data("trainingData")  # Process training data
+train_svm(trainingList, labelsList)  # Train SVM (requires processed training data)
+# prediction_test("test/")  # Make individual predictions for each image in folder
+print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.")  # Test SVM
