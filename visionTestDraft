@@ -1,4 +1,4 @@
-# Vision Machine draft
+# Vision Machine Draft
 # Developed by Amanda Joy Panell in collaboration with Emily Kelly and Jon Fenn
 
 import statistics  # For statistics.median()
@@ -14,8 +14,8 @@ def color_classifier(red, green, blue):
     median = statistics.median([red, blue, green])
 
     # If all colors are within 10 of each other
-    if blue <= (median + 10) and blue >= (median - 10) and green <= (median + 10) and green >= (median - 10) and \
-            red <= (median + 10) and red >= (median - 10):
+    if(median - 10 <= blue <= median + 10) and (median - 10 <= green <= median + 10)\
+            and (median - 10 <= red <= median + 10):
         if median <= 50:
             return "black"
         elif median >= 250:
@@ -24,21 +24,21 @@ def color_classifier(red, green, blue):
             return "gray"
     # If blue and green are within 10 of each other and are the top two numbers
     elif (max([red, blue, green]) == blue or max([red, blue, green]) == green) and \
-            (blue <= (green + 10) and blue >= (green - 10)):
+            (green - 10 <= blue <= green + 10):
         if blue >= 30 and green >= 30:
             return "blue"
         else:
             return "black"
     # If red and blue are within 10 of each other and are the top two numbers
     elif (max([red, blue, green]) == red or max([red, blue, green]) == blue) and \
-            (blue <= (red + 10) and blue >= (red - 10)):
+            (red - 10 <= blue <= red + 10):
         if red >= 40 and blue >= 40:
             return "pink"
         else:
             return "black"
     # If red and green are within 10 of each other and are the top two numbers
     elif (max([red, blue, green]) == red or max([red, blue, green]) == green) and \
-            (green <= (red + 10) and green >= (red - 10)):
+            (red - 10 <= green <= red + 10):
         if red >= 80 and green >= 80:
             return "yellow"
         else:
@@ -151,8 +151,6 @@ def process_image_folder(f_path, test_list, label_list, cat_path=""):
                 label_list.append(1)
             elif cat_path == "/smoky":
                 label_list.append(2)
-            elif cat_path == "/anomaly":
-                label_list.append(3)
 
             test_list.append(photo_data)  # Add each list to full list of image data
 
