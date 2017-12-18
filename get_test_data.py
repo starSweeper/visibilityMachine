@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 from urllib.request import urlretrieve
 import time
+import os
 
 
 # This function copied from http://pydoc.net/weather/0.9.1/weather.units.temp/
@@ -58,14 +59,14 @@ def get_photo():
     # Pull most recent image from site
     image_path = 'newData/medford_' + temperature + '_' + humidity + '_' + calculated_dew_point +\
                  '_' + time_captured + '_' + date + '.jpg'
-    urlretrieve('http://swo.odf.state.or.us/~webcam/webcam.jpg', image_path)
-
-    print('Image retrieved at ' + str(datetime.now()))
+    if not os.path.isfile(image_path):
+        urlretrieve('http://swo.odf.state.or.us/~webcam/webcam.jpg', image_path)
+        print('Image retrieved at ' + str(datetime.now()))
 
 
 def is_it_ready_yet():
     minute = datetime.now().minute
-    if minute == 10 or minute == 11:
+    if minute == 10:
         print("At last, my moment has arrived... retrieving image!")
         get_photo()
         print("1 hour remaining until next image is pulled.")
