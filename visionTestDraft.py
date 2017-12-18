@@ -145,9 +145,9 @@ def process_image_folder(f_path, test_list, label_list, cat_path=""):
         photo_data = process_image(f_path + cat_path + "/" + file)
 
         if cat_path != "" and photo_data is not None:
-            if cat_path == "/clear":
+            if cat_path == "/clear" or cat_path == "/good":
                 label_list.append(0)
-            elif cat_path == "/foggy":
+            elif cat_path == "/foggy" or cat_path == "/bad":
                 label_list.append(1)
             elif cat_path == "/smoky":
                 label_list.append(2)
@@ -169,10 +169,14 @@ def process_test_data(folder_path):
             process_image_folder(folder_path, all_testing_data, labels, "/smoky")
             print("Data extraction complete.")
             return all_testing_data, labels
+        elif os.path.isdir(folder_path + "/good" and os.path.isdir(folder_path + "/bad")):
+            print("Attempting to extract data from images... Please be patient!")
+            process_image_folder(folder_path, all_testing_data, labels, "/good")
+            process_image_folder(folder_path, all_testing_data, labels, "/bad")
         else:
-            print("ERROR! Test data not complete! Folders needed: clear, foggy, smoky. This is case sensitive!")
+            print("ERROR! Not all required folders were found! Folder names are case sensitive!")
     else:
-        print("ERROR! Could not find test data folder!")
+        print("ERROR! Could not find folder!")
 
 
 # NOT COMPLETE! Will be the function that the Raspberry Pi will use to classify new images when in the field.
@@ -192,7 +196,7 @@ def classify_image_from_camera():
 
 
 # Train the SVM
-def train_svm(training_data, labels):
+def train_svm(training_data, labels, file_name='svm_data.dat'):
     svm = cv2.ml.SVM_create()
     print("Training SVM...")
 
@@ -203,14 +207,14 @@ def train_svm(training_data, labels):
     svm.setGamma(115)
 
     svm.train(np.array(training_data, np.float32), cv2.ml.ROW_SAMPLE, np.array(labels, np.int32))
-    svm.save('svm_data.dat')
+    svm.save(file_name)
     print("Training complete.\n")
 
 
 # Classify a single image (based on its data after being processed)
-def predict_using_svm(image_data):
+def predict_using_svm(image_data, file_name='svm_data.dat'):
     data_list = [image_data]
-    svm = cv2.ml.SVM_load('svm_data.dat')
+    svm = cv2.ml.SVM_load(file_name)
     return int(svm.predict(np.asarray(data_list, np.float32))[1])  # Returns the classification. Will be an int.
 
 
@@ -220,7 +224,7 @@ def min_max_normalization(value):
 
 
 # Test the accuracy of the SVM
-def test_accuracy(folder):
+def test_accuracy(folder, file_name='svm_data.dat'):
     testing_data = []
     labels = []
     result = []
@@ -234,7 +238,7 @@ def test_accuracy(folder):
             process_image_folder(folder, testing_data, labels, "/smoky")
             print("Data extraction complete.")
 
-            svm = cv2.ml.SVM_load('svm_data.dat')
+            svm = cv2.ml.SVM_load(file_name)
             for i in testing_data:
                 temp_list = [i]
                 result.append(int(svm.predict(np.asarray(temp_list, np.float32))[1]))
@@ -262,14 +266,20 @@ def test_accuracy(folder):
 # A (hopefully) easy to use interface. Main menu.
 def user_interface():
     print("Welcome to visionMachine!\nWhat would you like to do?\n")
-    print("1. Train SVM (requires a folder of training images)")
-    print("2. Test SVM (requires a folder of test images)")
-    print("3. Predict an individual photo (requires a single image)")
-    print("4. Exit\n")
+    print("1. Initiate vision test. (Requires a single image.)")
+    print("2. Train clear/foggy/smoky SVM. (Requires a folder of training images.)")
+    print("3. Test clear/foggy/smoky SVM. (Requires a folder of test images.)")
+    print("4. Classify an individual photo using clear/foggy/smoky SVM. (Requires a single image.)")
+    print("5. Train good visibility/bad visibility SVM. (Requires a folder of training images.)")
+    print("6. Test good visibility/bad visibility SVM. (Requires a folder of training images.)")
+    print("7. Classify an individual photo using good visibility/bad visibility SVM. (Requires a single image.)")
+    print("8. Exit.\n")
 
     response = int(input("Please enter your selection: "))
 
     if response == 1:
+        print("One day...")
+    elif response == 2:
         if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
                  "or any other character to enter your own: ").lower() == "y":
             training_list, labels_list = process_test_data("trainingData")  # Process training data
@@ -280,7 +290,7 @@ def user_interface():
         print("\n")
         train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
         user_interface()
-    elif response == 2:
+    elif response == 3:
         if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
                  "or any other character to enter your own: ").lower() == "y":
             print("\n")
@@ -292,7 +302,7 @@ def user_interface():
             print("\n")
             print("SVM was " + str(round(test_accuracy(user_folder), 2)) + "% accurate.\n")  # Test SVM
             user_interface()
-    elif response == 3:
+    elif response == 4:
         prediction = predict_using_svm(process_image(input("Please enter image path: ")))
         print("\n")
         if prediction == 0:
@@ -301,9 +311,40 @@ def user_interface():
             print("Image classified as foggy.\n")
         elif prediction == 2:
             print("Image classified as smoky.\n")
-
         user_interface()
-    elif response == 4:
+    elif response == 5:
+        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
+                 "or any other character to enter your own: ").lower() == "y":
+            training_list, labels_list = process_test_data("trainingData")  # Process training data
+        else:
+            user_folder = input("Enter test image folder. Folder MUST have a 'good' sub-folder, "
+                                "and a 'bad' sub-folder: ")
+            training_list, labels_list = process_test_data(user_folder)  # Process training data
+
+        print("\n")
+        train_svm(training_list, labels_list, "goodOrBad_svm.dat")  # Train SVM (requires processed training data)
+        user_interface()
+    elif response == 6:
+        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
+                 "or any other character to enter your own: ").lower() == "y":
+            print("\n")
+            dprint("SVM was " + str(round(test_accuracy("testData", "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
+            user_interface()
+        else:
+            user_folder = input("Enter test image folder. Folder MUST have a 'good' sub-folder, "
+                                "and a 'bad' sub-folder: ")
+            print("\n")
+            print("SVM was " + str(round(test_accuracy(user_folder, "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
+            user_interface()
+    elif response == 7:
+        prediction = predict_using_svm(process_image(input("Please enter image path: ")), "goodOrBad_svm.dat")
+        print("\n")
+        if prediction == 0:
+            print("Image classified as good visibility.\n")
+        elif prediction == 1:
+            print("Image classified as bad visibility.\n")
+        user_interface()
+    elif response == 8:
         print("\nAs if you didn't know how to use the exit button. Lazy.")
         sys.exit(0)
     else:
