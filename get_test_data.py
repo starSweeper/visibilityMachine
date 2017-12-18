@@ -36,6 +36,7 @@ def add_lead_zero(string_to_add_to):
     return string_to_add_to
 
 
+# Pulls newest web cam photo and weather data from website
 def get_photo():
     # Prepare "soup"
     req = requests.get('http://swo.odf.state.or.us/')  # Medford cam
@@ -64,25 +65,21 @@ def get_photo():
 
 def is_it_ready_yet():
     minute = datetime.now().minute
-    if minute == 10 or minute == 11:
+    if minute == 0:
         print("At last, my moment has arrived... retrieving image!")
         get_photo()
         print("1 hour remaining until next image is pulled.")
         time.sleep(3600)
         is_it_ready_yet()
-    elif minute == 11:
+    elif minute == 1:
         print("Its a little later than I would ideally like to be doing this, but retrieving image!")
         get_photo()
         print("A little less than an hour remaining until next image is pulled.")
         time.sleep(3540)
         is_it_ready_yet()
-    elif minute < 10:
-        print("Not ready yet :/ " + str(10 - minute) + " minutes remaining until I can check again.")
-        time.sleep((10 - minute) * 60)
-        is_it_ready_yet()
-    elif minute > 11:
-        print("Not ready yet :/ " + str(70 - minute) + " minutes remaining until I can check again.")
-        time.sleep((70 - minute) * 60)
+    elif minute > 1:
+        print("Not ready yet :/ " + str(60 - minute) + " minutes remaining until I can check again.")
+        time.sleep((60 - minute) * 60)
         is_it_ready_yet()
 
 
