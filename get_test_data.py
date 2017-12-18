@@ -52,7 +52,7 @@ def get_photo():
     temperature = extracted_data[0].replace('.', 'p')
     humidity = extracted_data[1].replace('.', 'p')
     calculated_dew_point = calc_dew_point(extracted_data[0], extracted_data[1])
-    time_captured = add_lead_zero(extracted_data[3]) + add_lead_zero(extracted_data[4])
+    time_captured = str(datetime.now().hour) + add_lead_zero(extracted_data[4])
     date = add_lead_zero(extracted_data[5]) + add_lead_zero(extracted_data[6]) + add_lead_zero(extracted_data[7])
 
     # Pull most recent image from site
@@ -65,21 +65,25 @@ def get_photo():
 
 def is_it_ready_yet():
     minute = datetime.now().minute
-    if minute == 0:
+    if minute == 10 or minute == 11:
         print("At last, my moment has arrived... retrieving image!")
         get_photo()
         print("1 hour remaining until next image is pulled.")
         time.sleep(3600)
         is_it_ready_yet()
-    elif minute == 1:
+    elif minute == 11:
         print("Its a little later than I would ideally like to be doing this, but retrieving image!")
         get_photo()
         print("A little less than an hour remaining until next image is pulled.")
         time.sleep(3540)
         is_it_ready_yet()
-    elif minute > 1:
-        print("Not ready yet :/ " + str(60 - minute) + " minutes remaining until I can check again.")
-        time.sleep((60 - minute) * 60)
+    elif minute < 10:
+        print("Not ready yet :/ " + str(10 - minute) + " minutes remaining until I can check again.")
+        time.sleep((10 - minute) * 60)
+        is_it_ready_yet()
+    elif minute > 11:
+        print("Not ready yet :/ " + str(70 - minute) + " minutes remaining until I can check again.")
+        time.sleep((70 - minute) * 60)
         is_it_ready_yet()
 
 
