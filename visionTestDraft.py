@@ -113,6 +113,26 @@ def counting_colors(photo_path):
 
     return color_count
 
+# This function copied from http://pydoc.net/weather/0.9.1/weather.units.temp/
+# And then translated from C++ to Python, with code to convert between celsius and fahrenheit hard coded
+# And code added to reformat result
+# Temperature conversion from:
+#  http://www.pythonforbeginners.com/code-snippets-source-code/python-code-celsius-and-fahrenheit-converter
+# ASSUMES FAHRENHEIT!!!!!!!
+def calc_dew_point(temp_in_f, hum):
+
+    c = (float(temp_in_f) - 32) * 5.0/9.0
+    x = 1 - 0.01 * float(hum)
+
+    dew_point = (14.55 + 0.114 * c) * x
+    dew_point = dew_point + ((2.5 + 0.007 * c) * x) ** 3
+    dew_point = dew_point + (15.9 + 0.117 * c) * x ** 14
+    dew_point = c - dew_point
+    dew_point = 9.0/5.0 * dew_point + 32
+    dew_point = round(dew_point, 2)
+
+    return dew_point
+
 
 # Gets list of data from each image
 def process_image(file):
@@ -126,6 +146,9 @@ def process_image(file):
         temp = temp.replace("p", ".")
         humidity = humidity.replace("p", ".")
         dew_point = dew_point.replace("p", ".")
+
+        if dew_point == 'n':
+            dew_point = calc_dew_point(temp, humidity)
 
         # Add normalized data to the image data list
         photo_data.append(min_max_normalization(float(temp)))
