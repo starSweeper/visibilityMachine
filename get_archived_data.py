@@ -3,6 +3,7 @@ from PIL.ExifTags import TAGS
 from urllib.request import urlretrieve
 import urllib.request
 import json
+import time
 
 
 def pull_image(day, month, year):
@@ -27,12 +28,16 @@ def pull_image(day, month, year):
         image_title = 'newData/medford_' + temperature + '_' + humidity + '_' + dew_point + \
                       '_' + '1358' + '_' + month + day + year[-2:] + '.jpg'
 
-        image_url = 'http://swo.odf.state.or.us/~camarc/' + day + month + year + '.jpg'
+        image_url = 'http://swo.odf.state.or.us/~camarc/' + month + day + year + '.jpg'
         try:
             urlretrieve(image_url, image_title)
-        except:
-            pull_image(day, month, year)
-
+            print("Pulled image from (" + month + "/" + day + "/" + year + "). Now time for a quick nap...")
+        except Exception as e:
+            print("Ran into a bit of an issue.")
+            print(e)
+            print("Was attempting to retrieve this URL: " + image_url)
+            print("Pausing for a bit before I try a different one...")
+            time.sleep(60)
 
 
 def get_images_from_archive(limit):
@@ -41,6 +46,7 @@ def get_images_from_archive(limit):
     for i in range(limit):
         image_date = archive_date_list[i].split()
         pull_image(image_date[1], image_date[0], image_date[2])
+        time.sleep(8)  # Sleep for 8 seconds to avoid hitting the 10 calls a minute limit
 
 
-get_images_from_archive(450)
+get_images_from_archive(465)
