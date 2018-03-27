@@ -13,5 +13,5 @@ The purpose of this script is to pull test images from http://swo.odf.state.or.u
 *******************************
 
 Just run it from within the GitHub folder (requires a local "newData/" folder) and
-as long as you let it run, it will collect images once hour (thats how often they
+as long as you let it run, it will collect images once every hour (thats how often they
 update the weather information on the website.

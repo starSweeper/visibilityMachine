@@ -69,4 +69,4 @@ def get_images_from_archive(limit):
         print(str(shenanigan_total) + " shenanigans detected.")
 
 
-get_images_from_archive(500)  # It is very important that you only call this function one time a day!
+get_images_from_archive(212)  # It is very important that you only call this function one time a day!

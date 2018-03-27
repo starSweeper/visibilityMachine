@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Labeling Interface 2.0">
+    <output-path>$PROJECT_DIR$/labeling2.0.jar</output-path>
+    <root id="archive" name="Labeling Interface 2.0.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        <element id="library" level="project" name="opencv-341" />
+        <element id="library" level="project" name="x64" />
+      </element>
+      <element id="module-output" name="visibilityMachine" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/swingx-all-1.6.4.jar/swingx-all-1.6.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/opencv/build/java/opencv-341.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/JSON/java-json.jar/java-json.jar" path-in-jar="/" />
+      <element id="library" level="project" name="x64" />
+    </root>
+  </artifact>
+</component>

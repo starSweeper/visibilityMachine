@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="visibilityMachine:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/visibilityMachine_jar</output-path>
+    <root id="archive" name="visibilityMachine.jar">
+      <element id="module-output" name="visibilityMachine" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/swingx-all-1.6.4.jar/swingx-all-1.6.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/opencv/build/java/opencv-341.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/JSON/java-json.jar/java-json.jar" path-in-jar="/" />
+      <element id="library" level="project" name="x64" />
+    </root>
+  </artifact>
+</component>

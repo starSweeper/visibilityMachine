@@ -9,6 +9,9 @@ import datetime  # For time and date stamps
 import sys  # For system exit
 
 
+np.set_printoptions(threshold=np.nan)
+
+
 # Tells you which color group a pixel belongs in. The choices are Red, Blue, Green, Yellow, Pink, Gray, Black, and White
 def color_classifier(red, green, blue):
     median = statistics.median([red, blue, green])
@@ -113,6 +116,7 @@ def counting_colors(photo_path):
 
     return color_count
 
+
 # This function copied from http://pydoc.net/weather/0.9.1/weather.units.temp/
 # And then translated from C++ to Python, with code to convert between celsius and fahrenheit hard coded
 # And code added to reformat result
@@ -120,7 +124,6 @@ def counting_colors(photo_path):
 #  http://www.pythonforbeginners.com/code-snippets-source-code/python-code-celsius-and-fahrenheit-converter
 # ASSUMES FAHRENHEIT!!!!!!!
 def calc_dew_point(temp_in_f, hum):
-
     c = (float(temp_in_f) - 32) * 5.0/9.0
     x = 1 - 0.01 * float(hum)
 
@@ -134,8 +137,24 @@ def calc_dew_point(temp_in_f, hum):
     return dew_point
 
 
+def process_image_as_image(file):
+    image = cv2.imread(file, 1)
+    origImage = image
+
+    if image.size != 230400:
+        image = cv2.resize(image, (240, 320))
+
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.Canny(image, 200, 100)
+    image = cv2.normalize(image, image, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
+    #cv2.imshow("canny",image)
+    #cv2.imshow("uncanny",origImage)
+    #cv2.waitKey()
+    return image.flatten()
+
+
 # Gets list of data from each image
-def process_image(file):
+def process_image_as_data(file):
     if file.split(".")[1:] == ['png'] or file.split(".")[1:] == ['jpg']:  # Only process png and jpg files
 
         photo_data = counting_colors(file)  # Create data list and add to it a count of colors found in each image
@@ -165,7 +184,10 @@ def process_image_folder(f_path, test_list, label_list, cat_path=""):
 
     # Process each image in folder
     for file in os.listdir(f_path + cat_path):
-        photo_data = process_image(f_path + cat_path + "/" + file)
+        if cat_path == "/good" or cat_path == "/bad":
+            photo_data = process_image_as_image(f_path + cat_path + "/" + file)
+        else:
+            photo_data = process_image_as_data(f_path + cat_path + "/" + file)
 
         if cat_path != "" and photo_data is not None:
             if cat_path == "/clear" or cat_path == "/good":
@@ -192,10 +214,11 @@ def process_test_data(folder_path):
             process_image_folder(folder_path, all_testing_data, labels, "/smoky")
             print("Data extraction complete.")
             return all_testing_data, labels
-        elif os.path.isdir(folder_path + "/good" and os.path.isdir(folder_path + "/bad")):
+        elif os.path.isdir(folder_path + "/good") and os.path.isdir(folder_path + "/bad"):
             print("Attempting to extract data from images... Please be patient!")
             process_image_folder(folder_path, all_testing_data, labels, "/good")
             process_image_folder(folder_path, all_testing_data, labels, "/bad")
+            return all_testing_data, labels
         else:
             print("ERROR! Not all required folders were found! Folder names are case sensitive!")
     else:
@@ -253,23 +276,27 @@ def test_accuracy(folder, file_name='svm_data.dat'):
     result = []
 
     if os.path.isdir(folder):
-        if os.path.isdir(folder + "/clear") and os.path.isdir(folder + "/foggy") and os.path.isdir(
-                        folder + "/smoky"):
+        if os.path.isdir(folder + "/clear") and os.path.isdir(folder + "/foggy") and os.path.isdir(folder + "/smoky"):
             print("Preparing test data... This may take a while")
             process_image_folder(folder, testing_data, labels, "/clear")
             process_image_folder(folder, testing_data, labels, "/foggy")
             process_image_folder(folder, testing_data, labels, "/smoky")
             print("Data extraction complete.")
-
-            svm = cv2.ml.SVM_load(file_name)
-            for i in testing_data:
-                temp_list = [i]
-                result.append(int(svm.predict(np.asarray(temp_list, np.float32))[1]))
+        elif os.path.isdir(folder + "/good") and os.path.isdir(folder + "/bad"):
+            print("Preparing test data... This may take a while")
+            process_image_folder(folder, testing_data, labels, "/good")
+            process_image_folder(folder, testing_data, labels, "/bad")
+            print("Data extraction complete.")
         else:
             print(
                 "ERROR! Test data not complete! Folders needed: clear, foggy, smoky. This is case sensitive!")
     else:
         print("ERROR! Could not find test data folder!")
+
+    svm = cv2.ml.SVM_load(file_name)
+    for i in testing_data:
+        temp_list = [i]
+        result.append(int(svm.predict(np.asarray(temp_list, np.float32))[1]))
 
     mask = []
     print("Labels:  " + str(labels))
@@ -298,35 +325,21 @@ def user_interface():
     print("7. Classify an individual photo using good visibility/bad visibility SVM. (Requires a single image.)")
     print("8. Exit.\n")
 
-    response = int(input("Please enter your selection: "))
+    response = input("Please enter your selection: ")
 
-    if response == 1:
+    if response == '1':
         print("One day...")
-    elif response == 2:
-        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
-                 "or any other character to enter your own: ").lower() == "y":
-            training_list, labels_list = process_test_data("trainingData")  # Process training data
-        else:
-            user_folder = input("Enter test image folder. Folder MUST have a 'clear' sub-folder, "
-                                "a 'foggy' sub-folder, and a 'smoky' sub-folder: ")
-            training_list, labels_list = process_test_data(user_folder)  # Process training data
-        print("\n")
-        train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
         user_interface()
-    elif response == 3:
-        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
-                 "or any other character to enter your own: ").lower() == "y":
-            print("\n")
-            print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.\n")  # Test SVM
-            user_interface()
-        else:
-            user_folder = input("Enter test image folder. Folder MUST have a 'clear' sub-folder, "
-                                "a 'foggy' sub-folder, and a 'smoky' sub-folder: ")
-            print("\n")
-            print("SVM was " + str(round(test_accuracy(user_folder), 2)) + "% accurate.\n")  # Test SVM
-            user_interface()
-    elif response == 4:
-        prediction = predict_using_svm(process_image(input("Please enter image path: ")))
+    elif response == '2':
+        training_list, labels_list = process_test_data("trainingData")  # Process training data
+        train_svm(training_list, labels_list)  # Train SVM (requires processed training data)
+        print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.\n")  # Test SVM
+        user_interface()
+    elif response == '3':
+        print("SVM was " + str(round(test_accuracy("testData"), 2)) + "% accurate.\n")  # Test SVM
+        user_interface()
+    elif response == '4':
+        prediction = predict_using_svm(process_image_as_data(input("Please enter image path: ")))
         print("\n")
         if prediction == 0:
             print("Image classified as clear.\n")
@@ -335,39 +348,23 @@ def user_interface():
         elif prediction == 2:
             print("Image classified as smoky.\n")
         user_interface()
-    elif response == 5:
-        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
-                 "or any other character to enter your own: ").lower() == "y":
-            training_list, labels_list = process_test_data("trainingData")  # Process training data
-        else:
-            user_folder = input("Enter test image folder. Folder MUST have a 'good' sub-folder, "
-                                "and a 'bad' sub-folder: ")
-            training_list, labels_list = process_test_data(user_folder)  # Process training data
-
-        print("\n")
+    elif response == '5':
+        training_list, labels_list = process_test_data("trainGoodOrBad")  # Process training data
         train_svm(training_list, labels_list, "goodOrBad_svm.dat")  # Train SVM (requires processed training data)
-        user_interface()
-    elif response == 6:
-        if input("Enter 'y' to use default folder (visibilityMachine/trainingData) "
-                 "or any other character to enter your own: ").lower() == "y":
-            print("\n")
-            dprint("SVM was " + str(round(test_accuracy("testData", "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
+        print("SVM was " + str(round(test_accuracy("testGoodOrBad", "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
+        # user_interface()
+    elif response == '6':
+            print("SVM was " + str(round(test_accuracy("testGoodOrBad", "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
             user_interface()
-        else:
-            user_folder = input("Enter test image folder. Folder MUST have a 'good' sub-folder, "
-                                "and a 'bad' sub-folder: ")
-            print("\n")
-            print("SVM was " + str(round(test_accuracy(user_folder, "goodOrBad_svm.dat"), 2)) + "% accurate.\n")
-            user_interface()
-    elif response == 7:
-        prediction = predict_using_svm(process_image(input("Please enter image path: ")), "goodOrBad_svm.dat")
+    elif response == '7':
+        prediction = predict_using_svm(process_image_as_image(input("Please enter image path: ")), "goodOrBad_svm.dat")
         print("\n")
         if prediction == 0:
             print("Image classified as good visibility.\n")
         elif prediction == 1:
             print("Image classified as bad visibility.\n")
         user_interface()
-    elif response == 8:
+    elif response == '8':
         print("\nAs if you didn't know how to use the exit button. Lazy.")
         sys.exit(0)
     else:
