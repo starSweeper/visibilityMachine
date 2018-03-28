@@ -6,33 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f8a1450-4489-4c58-a9e2-cf0e8f407954" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_55p0_59_41p0_1358_110905.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_57p0_44_35p1_1358_111801.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_61p0_12_7p0_1358_110102.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_61p0_22_21p9_1358_110302.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_62p1_23_24p1_1358_110801.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_62p1_24_25p0_1358_110402.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_64p0_25_27p0_1358_110502.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_64p0_37_37p0_1358_110401.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_64p0_38_37p9_1358_110301.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_64p9_40_39p9_1358_102599.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_64p9_52_46p9_1358_111399.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_66p0_38_39p9_1358_091703.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_66p0_60_52p0_1358_100602.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_77p0_16_27p0_1358_102098.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/controversialImages/medford_78p1_32_46p0_1358_102803.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/java_json.xml" afterPath="$PROJECT_DIR$/.idea/libraries/java_json.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jcommon_1_0_23.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jcommon_1_0_23.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jfreechart_1_0_19.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jfreechart_1_0_19.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/opencv_341.xml" afterPath="$PROJECT_DIR$/.idea/libraries/opencv_341.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/swingx_all_1_6_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/swingx_all_1_6_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/x64.xml" afterPath="$PROJECT_DIR$/.idea/libraries/x64.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart_labeling.py" afterPath="$PROJECT_DIR$/smart_labeling.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/visibilityMachine.iml" afterPath="$PROJECT_DIR$/visibilityMachine.iml" />
-    </list>
+    <list default="true" id="0f8a1450-4489-4c58-a9e2-cf0e8f407954" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -315,7 +289,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.03147877" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
