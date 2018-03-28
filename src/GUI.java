@@ -183,6 +183,7 @@ public class GUI {
                 timeToMoveOn = true;
                 moveToNextPhoto = true;
                 skipCount++;
+                unlabeledCount--;
             }
         });
 
@@ -264,6 +265,7 @@ public class GUI {
                         goodVisibilityImage.getPath());
                 timeToMoveOn = true;
                 goodCount++;
+                unlabeledCount--;
             }
         });
 
@@ -287,6 +289,7 @@ public class GUI {
                         badVisibilityImage.getPath());
                 timeToMoveOn = true;
                 badCount++;
+                unlabeledCount--;
             }
         });
 
