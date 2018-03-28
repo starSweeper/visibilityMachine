@@ -306,3 +306,151 @@ Tue Mar 27 10:46:21 MDT 2018 Removed medford_82p9_20_37p9_1358_092203.jpg from c
 Tue Mar 27 10:46:21 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p9_20_37p9_1358_092203.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_82p9_20_37p9_1358_092203.jpg
 Tue Mar 27 10:46:27 MDT 2018 Removed medford_82p9_17_34p0_1358_092201.jpg from cluster #1
 Tue Mar 27 10:46:27 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p9_17_34p0_1358_092201.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_82p9_17_34p0_1358_092201.jpg
+Wed Mar 28 10:12:07 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p0_29_46p9_1358_092303.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:12:29 MDT 2018 Removed medford_82p0_29_46p9_1358_092303.jpg from cluster #1
+Wed Mar 28 10:12:29 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p0_29_46p9_1358_092303.jpg to trainOrTest\badVisibility\medford_82p0_29_46p9_1358_092303.jpg
+Wed Mar 28 10:12:39 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p0_21_37p9_1358_090704.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:12:42 MDT 2018 Removed medford_82p0_21_37p9_1358_090704.jpg from cluster #1
+Wed Mar 28 10:12:42 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_82p0_21_37p9_1358_090704.jpg to trainOrTest\badVisibility\medford_82p0_21_37p9_1358_090704.jpg
+Wed Mar 28 10:12:56 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_81p0_25_42p1_1358_100401.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:12:58 MDT 2018 Removed medford_81p0_25_42p1_1358_100401.jpg from cluster #1
+Wed Mar 28 10:12:58 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_81p0_25_42p1_1358_100401.jpg to trainOrTest\badVisibility\medford_81p0_25_42p1_1358_100401.jpg
+Wed Mar 28 10:13:01 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_34_48p9_1358_092404.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:01 MDT 2018 Removed medford_80p1_34_48p9_1358_092404.jpg from cluster #1
+Wed Mar 28 10:13:01 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_34_48p9_1358_092404.jpg to trainOrTest\badVisibility\medford_80p1_34_48p9_1358_092404.jpg
+Wed Mar 28 10:13:15 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_30_46p0_1358_090700.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:16 MDT 2018 Removed medford_80p1_30_46p0_1358_090700.jpg from cluster #1
+Wed Mar 28 10:13:16 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_30_46p0_1358_090700.jpg to trainOrTest\badVisibility\medford_80p1_30_46p0_1358_090700.jpg
+Wed Mar 28 10:13:26 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_093099.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:28 MDT 2018 Removed medford_80p1_23_39p0_1358_093099.jpg from cluster #1
+Wed Mar 28 10:13:28 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_093099.jpg to trainOrTest\goodVisibility\medford_80p1_23_39p0_1358_093099.jpg
+Wed Mar 28 10:13:34 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_092001.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:35 MDT 2018 Removed medford_80p1_23_39p0_1358_092001.jpg from cluster #1
+Wed Mar 28 10:13:35 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_092001.jpg to trainOrTest\badVisibility\medford_80p1_23_39p0_1358_092001.jpg
+Wed Mar 28 10:13:39 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_091801.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:45 MDT 2018 Removed medford_80p1_23_39p0_1358_091801.jpg from cluster #1
+Wed Mar 28 10:13:45 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_23_39p0_1358_091801.jpg to trainOrTest\badVisibility\medford_80p1_23_39p0_1358_091801.jpg
+Wed Mar 28 10:13:51 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_17_30p9_1358_092999.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:52 MDT 2018 Removed medford_80p1_17_30p9_1358_092999.jpg from cluster #1
+Wed Mar 28 10:13:52 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_80p1_17_30p9_1358_092999.jpg to trainOrTest\goodVisibility\medford_80p1_17_30p9_1358_092999.jpg
+Wed Mar 28 10:13:54 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_79p0_29_44p1_1358_100301.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:13:55 MDT 2018 Removed medford_79p0_29_44p1_1358_100301.jpg from cluster #1
+Wed Mar 28 10:13:55 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_79p0_29_44p1_1358_100301.jpg to trainOrTest\badVisibility\medford_79p0_29_44p1_1358_100301.jpg
+Wed Mar 28 10:14:01 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_39_51p1_1358_091700.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:14:02 MDT 2018 Removed medford_78p1_39_51p1_1358_091700.jpg from cluster #1
+Wed Mar 28 10:14:02 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_39_51p1_1358_091700.jpg to trainOrTest\badVisibility\medford_78p1_39_51p1_1358_091700.jpg
+Wed Mar 28 10:14:08 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_37_50p0_1358_091699.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:14:09 MDT 2018 Removed medford_78p1_37_50p0_1358_091699.jpg from cluster #1
+Wed Mar 28 10:14:09 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_37_50p0_1358_091699.jpg to trainOrTest\badVisibility\medford_78p1_37_50p0_1358_091699.jpg
+Wed Mar 28 10:14:12 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_35_48p0_1358_090504.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:14:13 MDT 2018 Removed medford_78p1_35_48p0_1358_090504.jpg from cluster #1
+Wed Mar 28 10:14:13 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_35_48p0_1358_090504.jpg to trainOrTest\badVisibility\medford_78p1_35_48p0_1358_090504.jpg
+Wed Mar 28 10:15:19 MDT 2018 Removed medford_78p1_32_46p0_1358_102803.jpg from cluster #1
+Wed Mar 28 10:15:19 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_32_46p0_1358_102803.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_78p1_32_46p0_1358_102803.jpg
+Wed Mar 28 10:15:27 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_27_41p0_1358_100499.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:15:38 MDT 2018 Removed medford_78p1_27_41p0_1358_100499.jpg from cluster #1
+Wed Mar 28 10:15:38 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_27_41p0_1358_100499.jpg to trainOrTest\badVisibility\medford_78p1_27_41p0_1358_100499.jpg
+Wed Mar 28 10:15:46 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_25_39p0_1358_092600.jpg to visibilityMachine/trainOrTest/smoky/
+Wed Mar 28 10:15:51 MDT 2018 Removed medford_78p1_25_39p0_1358_092600.jpg from cluster #1
+Wed Mar 28 10:15:51 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_78p1_25_39p0_1358_092600.jpg to trainOrTest\badVisibility\medford_78p1_25_39p0_1358_092600.jpg
+Wed Mar 28 10:15:55 MDT 2018 Removed medford_77p0_16_27p0_1358_102098.jpg from cluster #1
+Wed Mar 28 10:15:55 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_77p0_16_27p0_1358_102098.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_77p0_16_27p0_1358_102098.jpg
+Wed Mar 28 10:16:02 MDT 2018 Removed medford_66p0_60_52p0_1358_100602.jpg from cluster #1
+Wed Mar 28 10:16:02 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_60_52p0_1358_100602.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_66p0_60_52p0_1358_100602.jpg
+Wed Mar 28 10:16:19 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_42_42p1_1358_092801.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:16:21 MDT 2018 Removed medford_66p0_42_42p1_1358_092801.jpg from cluster #1
+Wed Mar 28 10:16:21 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_42_42p1_1358_092801.jpg to trainOrTest\goodVisibility\medford_66p0_42_42p1_1358_092801.jpg
+Wed Mar 28 10:17:08 MDT 2018 Removed medford_66p0_38_39p9_1358_091703.jpg from cluster #1
+Wed Mar 28 10:17:08 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_38_39p9_1358_091703.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_66p0_38_39p9_1358_091703.jpg
+Wed Mar 28 10:17:35 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_22_26p1_1358_092799.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:17:36 MDT 2018 Removed medford_66p0_22_26p1_1358_092799.jpg from cluster #1
+Wed Mar 28 10:17:36 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_66p0_22_26p1_1358_092799.jpg to trainOrTest\goodVisibility\medford_66p0_22_26p1_1358_092799.jpg
+Wed Mar 28 10:18:55 MDT 2018 Removed medford_64p9_40_39p9_1358_102599.jpg from cluster #1
+Wed Mar 28 10:18:55 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p9_40_39p9_1358_102599.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_64p9_40_39p9_1358_102599.jpg
+Wed Mar 28 10:19:09 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_54_46p9_1358_100799.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:19:09 MDT 2018 Removed medford_64p0_54_46p9_1358_100799.jpg from cluster #1
+Wed Mar 28 10:19:09 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_54_46p9_1358_100799.jpg to trainOrTest\goodVisibility\medford_64p0_54_46p9_1358_100799.jpg
+Wed Mar 28 10:20:43 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_33_34p0_1358_101403.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:20:44 MDT 2018 Removed medford_64p0_33_34p0_1358_101403.jpg from cluster #1
+Wed Mar 28 10:20:44 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_33_34p0_1358_101403.jpg to trainOrTest\goodVisibility\medford_64p0_33_34p0_1358_101403.jpg
+Wed Mar 28 10:21:14 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_63p0_40_37p9_1358_102403.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:21:15 MDT 2018 Removed medford_63p0_40_37p9_1358_102403.jpg from cluster #1
+Wed Mar 28 10:21:15 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_63p0_40_37p9_1358_102403.jpg to trainOrTest\goodVisibility\medford_63p0_40_37p9_1358_102403.jpg
+Wed Mar 28 10:21:46 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_46_41p0_1358_102303.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:21:47 MDT 2018 Removed medford_62p1_46_41p0_1358_102303.jpg from cluster #1
+Wed Mar 28 10:21:47 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_46_41p0_1358_102303.jpg to trainOrTest\goodVisibility\medford_62p1_46_41p0_1358_102303.jpg
+Wed Mar 28 10:21:52 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_41_37p9_1358_101201.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:21:53 MDT 2018 Removed medford_62p1_41_37p9_1358_101201.jpg from cluster #1
+Wed Mar 28 10:21:53 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_41_37p9_1358_101201.jpg to trainOrTest\goodVisibility\medford_62p1_41_37p9_1358_101201.jpg
+Wed Mar 28 10:21:58 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_50_42p1_1358_101004.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:21:58 MDT 2018 Removed medford_61p0_50_42p1_1358_101004.jpg from cluster #1
+Wed Mar 28 10:21:58 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_50_42p1_1358_101004.jpg to trainOrTest\goodVisibility\medford_61p0_50_42p1_1358_101004.jpg
+Wed Mar 28 10:22:03 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_39_36p0_1358_101701.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:22:04 MDT 2018 Removed medford_61p0_39_36p0_1358_101701.jpg from cluster #1
+Wed Mar 28 10:22:04 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_39_36p0_1358_101701.jpg to trainOrTest\goodVisibility\medford_61p0_39_36p0_1358_101701.jpg
+Wed Mar 28 10:22:10 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_41_36p0_1358_100901.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:22:11 MDT 2018 Removed medford_60p1_41_36p0_1358_100901.jpg from cluster #1
+Wed Mar 28 10:22:11 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_41_36p0_1358_100901.jpg to trainOrTest\goodVisibility\medford_60p1_41_36p0_1358_100901.jpg
+Wed Mar 28 10:22:17 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_35_32p0_1358_101303.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:22:19 MDT 2018 Removed medford_60p1_35_32p0_1358_101303.jpg from cluster #1
+Wed Mar 28 10:22:19 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_35_32p0_1358_101303.jpg to trainOrTest\goodVisibility\medford_60p1_35_32p0_1358_101303.jpg
+Wed Mar 28 10:22:28 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_30_28p0_1358_101801.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:22:36 MDT 2018 Removed medford_60p1_30_28p0_1358_101801.jpg from cluster #1
+Wed Mar 28 10:22:36 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_60p1_30_28p0_1358_101801.jpg to trainOrTest\goodVisibility\medford_60p1_30_28p0_1358_101801.jpg
+Wed Mar 28 10:22:41 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_59p0_12_5p0_1358_103102.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:22:45 MDT 2018 Removed medford_59p0_12_5p0_1358_103102.jpg from cluster #1
+Wed Mar 28 10:22:45 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_59p0_12_5p0_1358_103102.jpg to trainOrTest\goodVisibility\medford_59p0_12_5p0_1358_103102.jpg
+Wed Mar 28 10:22:58 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_57p0_33_28p0_1358_101599.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:23:01 MDT 2018 Removed medford_57p0_33_28p0_1358_101599.jpg from cluster #1
+Wed Mar 28 10:23:01 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_57p0_33_28p0_1358_101599.jpg to trainOrTest\goodVisibility\medford_57p0_33_28p0_1358_101599.jpg
+Wed Mar 28 10:24:11 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_55p0_64_43p0_1358_102999.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:24:13 MDT 2018 Removed medford_55p0_64_43p0_1358_102999.jpg from cluster #1
+Wed Mar 28 10:24:13 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_55p0_64_43p0_1358_102999.jpg to trainOrTest\goodVisibility\medford_55p0_64_43p0_1358_102999.jpg
+Wed Mar 28 10:24:22 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_48p2_87_44p6_1358_103099.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:24:28 MDT 2018 Removed medford_48p2_87_44p6_1358_103099.jpg from cluster #1
+Wed Mar 28 10:24:28 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_48p2_87_44p6_1358_103099.jpg to trainOrTest\badVisibility\medford_48p2_87_44p6_1358_103099.jpg
+Wed Mar 28 10:24:45 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p9_52_46p9_1358_111399.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:25:41 MDT 2018 Removed medford_64p9_52_46p9_1358_111399.jpg from cluster #1
+Wed Mar 28 10:25:41 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p9_52_46p9_1358_111399.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_64p9_52_46p9_1358_111399.jpg
+Wed Mar 28 10:26:01 MDT 2018 Removed medford_64p0_38_37p9_1358_110301.jpg from cluster #1
+Wed Mar 28 10:26:01 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_38_37p9_1358_110301.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_64p0_38_37p9_1358_110301.jpg
+Wed Mar 28 10:26:25 MDT 2018 Removed medford_64p0_37_37p0_1358_110401.jpg from cluster #1
+Wed Mar 28 10:26:25 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_37_37p0_1358_110401.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_64p0_37_37p0_1358_110401.jpg
+Wed Mar 28 10:26:29 MDT 2018 Removed medford_64p0_25_27p0_1358_110502.jpg from cluster #1
+Wed Mar 28 10:26:29 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_64p0_25_27p0_1358_110502.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_64p0_25_27p0_1358_110502.jpg
+Wed Mar 28 10:26:44 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_41_37p9_1358_110199.jpg to visibilityMachine/trainOrTest/clear/
+Wed Mar 28 10:27:02 MDT 2018 Removed medford_62p1_41_37p9_1358_110199.jpg from cluster #1
+Wed Mar 28 10:27:02 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_41_37p9_1358_110199.jpg to trainOrTest\goodVisibility\medford_62p1_41_37p9_1358_110199.jpg
+Wed Mar 28 10:27:15 MDT 2018 Removed medford_62p1_24_25p0_1358_110402.jpg from cluster #1
+Wed Mar 28 10:27:15 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_24_25p0_1358_110402.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_62p1_24_25p0_1358_110402.jpg
+Wed Mar 28 10:27:18 MDT 2018 Removed medford_62p1_23_24p1_1358_110801.jpg from cluster #1
+Wed Mar 28 10:27:18 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_62p1_23_24p1_1358_110801.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_62p1_23_24p1_1358_110801.jpg
+Wed Mar 28 10:27:28 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_62_48p0_1358_110300.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:27:32 MDT 2018 Removed medford_61p0_62_48p0_1358_110300.jpg from cluster #1
+Wed Mar 28 10:27:32 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_62_48p0_1358_110300.jpg to trainOrTest\goodVisibility\medford_61p0_62_48p0_1358_110300.jpg
+Wed Mar 28 10:27:37 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_52_43p0_1358_110399.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:27:42 MDT 2018 Removed medford_61p0_52_43p0_1358_110399.jpg from cluster #1
+Wed Mar 28 10:27:42 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_52_43p0_1358_110399.jpg to trainOrTest\badVisibility\medford_61p0_52_43p0_1358_110399.jpg
+Wed Mar 28 10:28:00 MDT 2018 Removed medford_61p0_22_21p9_1358_110302.jpg from cluster #1
+Wed Mar 28 10:28:00 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_22_21p9_1358_110302.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_61p0_22_21p9_1358_110302.jpg
+Wed Mar 28 10:28:03 MDT 2018 Removed medford_61p0_12_7p0_1358_110102.jpg from cluster #1
+Wed Mar 28 10:28:03 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_61p0_12_7p0_1358_110102.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_61p0_12_7p0_1358_110102.jpg
+Wed Mar 28 10:28:13 MDT 2018 Removed medford_57p0_44_35p1_1358_111801.jpg from cluster #1
+Wed Mar 28 10:28:13 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_57p0_44_35p1_1358_111801.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_57p0_44_35p1_1358_111801.jpg
+Wed Mar 28 10:28:16 MDT 2018 Removed medford_55p0_59_41p0_1358_110905.jpg from cluster #1
+Wed Mar 28 10:28:16 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_55p0_59_41p0_1358_110905.jpg to C:\Users\apanell\Documents\GitHub\visibilityMachine\controversialImages\medford_55p0_59_41p0_1358_110905.jpg
+Wed Mar 28 10:28:25 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_51p1_71_42p1_1358_111799.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:28:27 MDT 2018 Removed medford_51p1_71_42p1_1358_111799.jpg from cluster #1
+Wed Mar 28 10:28:27 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_51p1_71_42p1_1358_111799.jpg to trainOrTest\badVisibility\medford_51p1_71_42p1_1358_111799.jpg
+Wed Mar 28 10:28:29 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_46p9_63_35p1_1358_112199.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:28:30 MDT 2018 Removed medford_46p9_63_35p1_1358_112199.jpg from cluster #1
+Wed Mar 28 10:28:30 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_46p9_63_35p1_1358_112199.jpg to trainOrTest\badVisibility\medford_46p9_63_35p1_1358_112199.jpg
+Wed Mar 28 10:28:32 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_44p6_81_39p2_1358_112899.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:28:32 MDT 2018 Removed medford_44p6_81_39p2_1358_112899.jpg from cluster #1
+Wed Mar 28 10:28:32 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_44p6_81_39p2_1358_112899.jpg to trainOrTest\badVisibility\medford_44p6_81_39p2_1358_112899.jpg
+Wed Mar 28 10:28:34 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_25p0_66_15p1_1358_120913.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:28:35 MDT 2018 Removed medford_25p0_66_15p1_1358_120913.jpg from cluster #1
+Wed Mar 28 10:28:35 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_25p0_66_15p1_1358_120913.jpg to trainOrTest\badVisibility\medford_25p0_66_15p1_1358_120913.jpg
+Wed Mar 28 10:28:38 MDT 2018 Copied C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_21p9_75_15p1_1358_120813.jpg to visibilityMachine/trainOrTest/foggy/
+Wed Mar 28 10:28:38 MDT 2018 Removed medford_21p9_75_15p1_1358_120813.jpg from cluster #1
+Wed Mar 28 10:28:38 MDT 2018 Renamed C:\Users\apanell\Documents\GitHub\visibilityMachine\newData1\medford_21p9_75_15p1_1358_120813.jpg to trainOrTest\badVisibility\medford_21p9_75_15p1_1358_120813.jpg

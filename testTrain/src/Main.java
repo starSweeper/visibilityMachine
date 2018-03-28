@@ -1,3 +1,5 @@
 public class Main {
-    GUI displayRead = new GUI();
+    public static void main(String[] args) {
+        GUI displayRead = new GUI();
+    }
 }

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PartitionData">
+    <output-path>$PROJECT_DIR$/out/artifacts/PartitionData</output-path>
+    <root id="archive" name="testTrain.jar">
+      <element id="module-output" name="testTrain" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
