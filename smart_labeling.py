@@ -1,10 +1,10 @@
 # Python Script to cluster, sort, and analyze new images so that they can be labeled by the labeling interface
 
-import statistics
-import cv2
-import numpy as np
-from sklearn.cluster import KMeans
-import os
+import statistics  # Needed to find median of a list of numbers
+import cv2  # Needed for image processing
+import numpy as np  # Needed for image processing
+from sklearn.cluster import KMeans  # Needed for K-means clustering
+import os  # Needed to list files
 
 np.set_printoptions(threshold=np.nan)
 
@@ -19,6 +19,7 @@ class NewImages:
         self.i_data = image_data
         self.cluster = cluster_num
         self.month = int(str(self.attribute_list[-1])[:-4])
+
         # If month is invalid, set it to January and let the problem be fixed during labeling
         if self.month > 12 or self.month == 0:
             self.month = 1
@@ -204,8 +205,6 @@ def get_cluster_stats(i_objects):
                        ",\n\t\t\"tempAvg\": " + str(get_averages(cluster_group[j], 8)) + \
                        ",\n\t\t\"humidityAvg\": " + str(get_averages(cluster_group[j], 9)) + \
                        ",\n\t\t\"dewPointAvg\": " + str(get_averages(cluster_group[j], 10)) + \
-                       ",\n\t\t\"timeAvg\": " + str(get_averages(cluster_group[j], 11)) + \
-                       ",\n\t\t\"dateAvg\": " + str(get_averages(cluster_group[j], 12)) + \
                        ",\n\t\t\"images\":\n\t\t\t[\n\t\t\t\t"
         for count in range(len(cluster_group[j])):
             json_string += "{\n\t\t\t\t\t\"imageID\": " + str(count) + \
@@ -223,8 +222,6 @@ def get_cluster_stats(i_objects):
                            ",\n\t\t\t\t\t\"tempInF\": " + str(cluster_group[j][count].attribute_list[8]) + \
                            ",\n\t\t\t\t\t\"humidity\": " + str(cluster_group[j][count].attribute_list[9]) + \
                            ",\n\t\t\t\t\t\"dewPointInF\": " + str(cluster_group[j][count].attribute_list[10]) + \
-                           ",\n\t\t\t\t\t\"time\": \"" + str(cluster_group[j][count].attribute_list[11]) + "\"" + \
-                           ",\n\t\t\t\t\t\"date\": \"" + str(cluster_group[j][count].attribute_list[12]) + "\""+ \
                            "\n\t\t\t\t},\n\t\t\t\t"
         json_string += "\b]\n\t},"
     json_string += "\n]}"
@@ -258,7 +255,7 @@ def get_month_stats(i_objects):
 
 all_images = []
 all_data = []
-new_images("newData1", all_images)
+new_images("newData", all_images)
 progress = ""
 image_objects = []
 
