@@ -1,14 +1,19 @@
+# Developed December 2017 by Amanda Joy Panell to pull archived images from http://swo.odf.state.or.us/ and archived
+# weather data from http://api.wunderground.com
+# A Weather Underground historical data API key is required.
+
 from urllib.request import urlretrieve
 import urllib.request
 import json
 import time
 
+wundergroundAPI = "[ENTER YOUR API KEY HERE]"
 
 def pull_image(count_down, day, month, year):
     # Get weather data (CAN ONLY DO THIS 500 TIMES A DAY!!!!!!)
     shenanigan_count = 0
 
-    json_from_site = urllib.request.urlopen('http://api.wunderground.com/api/fd446ebeccba6358/history_' +
+    json_from_site = urllib.request.urlopen('http://api.wunderground.com/api/' + wundergroundAPI + '/history_' +
                                             year + month + day + '/q/OR/Medford.json')
     json_string = json_from_site.read()
     parsed_json = json.loads(json_string)

@@ -9,6 +9,7 @@ import os  # Needed to list files
 np.set_printoptions(threshold=np.nan)
 
 
+# Class for images and keeping track of their attributes
 class NewImages:
     image_total = 0
 
@@ -24,7 +25,7 @@ class NewImages:
         if self.month > 12 or self.month == 0:
             self.month = 1
 
-        NewImages.image_total += 1
+        NewImages.image_total += 1  # Count the images
 
 
 # Create a list of files in folder

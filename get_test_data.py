@@ -1,3 +1,5 @@
+# Developed December 2017 by Amanda Joy Panell to pull images and weather information from http://swo.odf.state.or.us/
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -57,7 +59,7 @@ def get_photo():
     date = add_lead_zero(extracted_data[5]) + add_lead_zero(extracted_data[6]) + add_lead_zero(extracted_data[7])
 
     # Pull most recent image from site
-    image_path = 'newData/medford_' + temperature + '_' + humidity + '_' + calculated_dew_point +\
+    image_path = 'newData1/medford_' + temperature + '_' + humidity + '_' + calculated_dew_point +\
                  '_' + time_captured + '_' + date + '.jpg'
     if not os.path.isfile(image_path):
         urlretrieve('http://swo.odf.state.or.us/~webcam/webcam.jpg', image_path)
