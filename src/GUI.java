@@ -149,6 +149,7 @@ public class GUI {
                 interfaceG();
             }
         });
+
         JMenuItem sortByCluster = new JMenuItem("Sort by cluster");
         sortByCluster.addActionListener(new ActionListener() {
             @Override
@@ -160,8 +161,153 @@ public class GUI {
                 interfaceG();
             }
         });
+
+        JMenuItem sortByTemp = new JMenuItem("Sort by temperature");
+        sortByTemp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByTemp();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByHumidity = new JMenuItem("Sort by humidity");
+        sortByHumidity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByHumidity();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByDewPoint = new JMenuItem("Sort by dew point");
+        sortByDewPoint.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByDewPoint();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByRed = new JMenuItem("Sort by number of RED pixels");
+        sortByRed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByRedPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByBlue = new JMenuItem("Sort by number of BLUE pixels");
+        sortByBlue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByBluePixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByGreen = new JMenuItem("Sort by number of GREEN pixels");
+        sortByGreen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByGreenPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByYellow = new JMenuItem("Sort by number of YELLOW pixels");
+        sortByYellow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByYellowPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByPink = new JMenuItem("Sort by number of PINK pixels");
+        sortByPink.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByPinkPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByGray = new JMenuItem("Sort by number of GRAY pixels");
+        sortByGray.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByGrayPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByBlack = new JMenuItem("Sort by number of BLACK pixels");
+        sortByBlack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByBlackPixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
+        JMenuItem sortByWhite = new JMenuItem("Sort by number of WHITE pixels");
+        sortByWhite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateGUI = true;
+                sortArrayListByWhitePixels();
+                JOptionPane.showMessageDialog(null,
+                        "Changes will take place with the next image.");
+                interfaceG();
+            }
+        });
+
         sortingMenu.add(sortByMonth);
         sortingMenu.add(sortByCluster);
+        sortingMenu.add(sortByTemp);
+        sortingMenu.add(sortByHumidity);
+        sortingMenu.add(sortByDewPoint);
+        sortingMenu.add(sortByRed);
+        sortingMenu.add(sortByBlue);
+        sortingMenu.add(sortByGreen);
+        sortingMenu.add(sortByYellow);
+        sortingMenu.add(sortByPink);
+        sortingMenu.add(sortByGray);
+        sortingMenu.add(sortByBlack);
+        sortingMenu.add(sortByWhite);
+
         menuBar.add(sortingMenu);
         window.setJMenuBar(menuBar);
 
@@ -376,6 +522,138 @@ public class GUI {
             public int compare(LabelImage o1, LabelImage o2) {
                 Integer cluster1 = o1.getParentCluster().getClusterNum();
                 Integer cluster2 = o2.getParentCluster().getClusterNum();
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by temperature
+    private void sortArrayListByTemp(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Double cluster1 = Double.valueOf(o1.getTempF());
+                Double cluster2 = Double.valueOf(o2.getTempF());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by humidity
+    private void sortArrayListByHumidity(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Double cluster1 = Double.valueOf(o1.getHumidity());
+                Double cluster2 = Double.valueOf(o2.getHumidity());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by dew point
+    private void sortArrayListByDewPoint(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Double cluster1 = Double.valueOf(o1.getDewPoint());
+                Double cluster2 = Double.valueOf(o2.getDewPoint());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by red pixels
+    private void sortArrayListByRedPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getRedCount());
+                Integer cluster2 = Integer.valueOf(o2.getRedCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by blue pixels
+    private void sortArrayListByBluePixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getBlueCount());
+                Integer cluster2 = Integer.valueOf(o2.getBlueCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by green pixels
+    private void sortArrayListByGreenPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getGreenCount());
+                Integer cluster2 = Integer.valueOf(o2.getGreenCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by yellow pixels
+    private void sortArrayListByYellowPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getYellowCount());
+                Integer cluster2 = Integer.valueOf(o2.getYellowCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by black pixels
+    private void sortArrayListByBlackPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getBlackCount());
+                Integer cluster2 = Integer.valueOf(o2.getBlackCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by pink pixels
+    private void sortArrayListByPinkPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getPinkCount());
+                Integer cluster2 = Integer.valueOf(o2.getPinkCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by gray pixels
+    private void sortArrayListByGrayPixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getGrayCount());
+                Integer cluster2 = Integer.valueOf(o2.getGrayCount());
+                return cluster2.compareTo(cluster1);
+            }
+        });
+    }
+
+    //Sort a LabelImage ArrayList by white pixels
+    private void sortArrayListByWhitePixels(){
+        Collections.sort(images, new Comparator<LabelImage>() {
+            @Override
+            public int compare(LabelImage o1, LabelImage o2) {
+                Integer cluster1 = Integer.valueOf(o1.getWhiteCount());
+                Integer cluster2 = Integer.valueOf(o2.getWhiteCount());
                 return cluster2.compareTo(cluster1);
             }
         });

@@ -182,8 +182,10 @@ def process_image_as_data(file):
 # Process a folder full of images
 def process_image_folder(f_path, test_list, label_list, cat_path=""):
 
-    # Process each image in folder
-    for file in os.listdir(f_path + cat_path):
+    for i, file in enumerate(os.listdir(f_path + cat_path)):
+        progress = str(i + 1) + "/" + str(len(os.listdir(f_path + cat_path))) + " " + cat_path[1:] + " images processed"
+        print('\r' + progress, end='')
+
         if cat_path == "/good" or cat_path == "/bad":
             photo_data = process_image_as_image(f_path + cat_path + "/" + file)
         else:
@@ -198,6 +200,7 @@ def process_image_folder(f_path, test_list, label_list, cat_path=""):
                 label_list.append(2)
 
             test_list.append(photo_data)  # Add each list to full list of image data
+    print("\n")
 
 
 # Makes sure folder meets the proper requirements before it can be processed
@@ -208,14 +211,14 @@ def process_test_data(folder_path):
     if os.path.isdir(folder_path):
         if os.path.isdir(folder_path + "/clear") and os.path.isdir(folder_path + "/foggy") \
                 and os.path.isdir(folder_path + "/smoky"):
-            print("Attempting to extract data from images... Please be patient!")
+            print("Attempting to extract data from images... Please be patient!\n")
             process_image_folder(folder_path, all_testing_data, labels, "/clear")
             process_image_folder(folder_path, all_testing_data, labels, "/foggy")
             process_image_folder(folder_path, all_testing_data, labels, "/smoky")
             print("Data extraction complete.")
             return all_testing_data, labels
         elif os.path.isdir(folder_path + "/good") and os.path.isdir(folder_path + "/bad"):
-            print("Attempting to extract data from images... Please be patient!")
+            print("Attempting to extract data from images... Please be patient!\n")
             process_image_folder(folder_path, all_testing_data, labels, "/good")
             process_image_folder(folder_path, all_testing_data, labels, "/bad")
             return all_testing_data, labels
@@ -277,13 +280,13 @@ def test_accuracy(folder, file_name='svm_data.dat'):
 
     if os.path.isdir(folder):
         if os.path.isdir(folder + "/clear") and os.path.isdir(folder + "/foggy") and os.path.isdir(folder + "/smoky"):
-            print("Preparing test data... This may take a while")
+            print("Preparing test data... This may take a while\n")
             process_image_folder(folder, testing_data, labels, "/clear")
             process_image_folder(folder, testing_data, labels, "/foggy")
             process_image_folder(folder, testing_data, labels, "/smoky")
             print("Data extraction complete.")
         elif os.path.isdir(folder + "/good") and os.path.isdir(folder + "/bad"):
-            print("Preparing test data... This may take a while")
+            print("Preparing test data... This may take a while\n")
             process_image_folder(folder, testing_data, labels, "/good")
             process_image_folder(folder, testing_data, labels, "/bad")
             print("Data extraction complete.")

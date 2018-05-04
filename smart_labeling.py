@@ -9,7 +9,6 @@ import os  # Needed to list files
 np.set_printoptions(threshold=np.nan)
 
 
-# Class for images and keeping track of their attributes
 class NewImages:
     image_total = 0
 
@@ -25,7 +24,7 @@ class NewImages:
         if self.month > 12 or self.month == 0:
             self.month = 1
 
-        NewImages.image_total += 1  # Count the images
+        NewImages.image_total += 1
 
 
 # Create a list of files in folder
@@ -210,7 +209,7 @@ def get_cluster_stats(i_objects):
         for count in range(len(cluster_group[j])):
             json_string += "{\n\t\t\t\t\t\"imageID\": " + str(count) + \
                            ",\n\t\t\t\t\t\"imagePath\": \"" + cluster_group[j][count].f_path.replace("\\", "\\\\") + \
-                           "\"" + \
+                           ",\n\t\t\t\t\t\"date\": \"" + cluster_group[j][count].date + "\"" + \
                            ",\n\t\t\t\t\t\"imageTitle\": \"" + cluster_group[j][count].f_name + "\"" + \
                            ",\n\t\t\t\t\t\"redCount\": " + str(cluster_group[j][count].attribute_list[0]) + \
                            ",\n\t\t\t\t\t\"blueCount\": " + str(cluster_group[j][count].attribute_list[1]) + \

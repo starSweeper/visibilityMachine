@@ -61,13 +61,14 @@ public class Cluster {
 
         int imageCount = 0;
         //For each image (Until there are 9 images in gallery), add image to gallery if it is not the current image
-        for (LabelImage anImageList : imageList) {
-            if (!(anImageList.getPath().equals(currentImage.getPath()))) {
+        //for (LabelImage anImageList : imageList) {
+        for (int i = 0; i < imageList.size() && i < 9; i++){
+            if (!(imageList.get(i).getPath().equals(currentImage.getPath()))) {
                 imageCount++;
                 try {
                     //Add image to HTMLString
                     HTMLString += ("<img width = " + width + " height = " + height + " src=" +
-                            new URL("file:///" + anImageList.getPath()) + ">");
+                            new URL("file:///" + imageList.get(i).getPath()) + ">");
                 } catch (Exception E) {
                     System.out.println(E.getMessage());
                 }

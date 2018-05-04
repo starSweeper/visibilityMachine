@@ -54,12 +54,12 @@ class GUI {
         //Find and count smoky images
         smokyCount = gatherImages("trainOrTest/smoky", smokyCount, smokyImages);
         smokyCount = gatherImages("testData/smoky", smokyCount, smokyImages);
-        smokyCount = gatherImages("trainingData", smokyCount, smokyImages);
+        smokyCount = gatherImages("trainingData/smoky", smokyCount, smokyImages);
 
         //Find and count good visibility images
         goodCount = gatherImages("trainOrTest/goodVisibility", goodCount, goodImages);
         goodCount = gatherImages("testGoodOrBad/good", goodCount, goodImages);
-        goodCount = gatherImages("trainGoodOrBad", goodCount, goodImages);
+        goodCount = gatherImages("trainGoodOrBad/good", goodCount, goodImages);
 
         //Find and count bad visibility images
         badCount = gatherImages("trainOrTest/badVisibility", badCount, badImages);

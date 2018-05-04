@@ -26,9 +26,18 @@ public class LabelImage {
             selfPortrait = newImage;
             name = newImage.getString("imageTitle");
             path = newImage.getString("imagePath");
-            time = newImage.getString("time");
+            //time = newImage.getString("time");
+
+            //time = time.substring(0,2) + ":" + time.substring(time.length() - 2);
+            //date = newImage.getString("date");
+            //
+            String tempName = name.replace(".","_");
+            String[]namePieces = tempName.split("_");
+            date = namePieces[5];
+            time = namePieces[4];
             time = time.substring(0,2) + ":" + time.substring(time.length() - 2);
-            date = newImage.getString("date");
+            //
+
             month = date.replace(date.substring(date.length() - 4),"");
 
             setMonthABC();
